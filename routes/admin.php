@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\Admin\AdminManagement\AdminManagementController;
 use App\Http\Controllers\Api\V1\Admin\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Admin\Blog\BlogController;
+use App\Http\Controllers\Api\V1\Admin\Client\ClientController;
 use App\Http\Controllers\Api\V1\Admin\ContactUs\ContactUsController;
 use App\Http\Controllers\Api\V1\Admin\Country\CountryController;
 use App\Http\Controllers\Api\V1\Admin\Faq\FaqController;
@@ -53,5 +54,12 @@ Route::prefix('v1/admin')->middleware(['auth:sanctum', 'locale', 'json'])->group
         Route::post('', [BlogController::class, 'store']);
         Route::patch('{blog}', [BlogController::class, 'update']);
         Route::delete('{blog}', [BlogController::class, 'destroy']);
+    });
+    Route::prefix('clients')->group(function () {
+        Route::get('', [ClientController::class, 'index']);
+        Route::get('{client}', [ClientController::class, 'show']);
+        Route::post('', [ClientController::class, 'store']);
+        Route::patch('{client}', [ClientController::class, 'update']);
+        Route::delete('{client}', [ClientController::class, 'destroy']);
     });
 });
