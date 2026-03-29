@@ -29,7 +29,7 @@ class FaqController extends Controller
 
             return ApiResponse::success(
                 [
-                    'questions' => $faqs['data'],
+                    'faqs' => $faqs['data'],
                     'meta' => $faqs['meta'],
                     'links' => $faqs['links'],
                 ],
@@ -56,7 +56,7 @@ class FaqController extends Controller
             $faq = $this->service->show($faq);
 
             return ApiResponse::success(
-                ['question' => FaqResource::make($faq)],
+                ['faq' => FaqResource::make($faq)],
                 __('faq.showed_successfully'),
                 Response::HTTP_OK
             );
@@ -92,7 +92,7 @@ class FaqController extends Controller
             $faq = $this->service->store($request->validated());
 
             return ApiResponse::success(
-                ['question' => FaqResource::make($faq)],
+                ['faq' => FaqResource::make($faq)],
                 __('faq.created_successfully'),
                 Response::HTTP_CREATED
             );
@@ -116,7 +116,7 @@ class FaqController extends Controller
             $faq = $this->service->update($faq, $request->validated());
 
             return ApiResponse::success(
-                ['question' => FaqResource::make($faq)],
+                ['faq' => FaqResource::make($faq)],
                 __('faq.updated_successfully'),
                 Response::HTTP_CREATED
             );
