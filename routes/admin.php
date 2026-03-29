@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\V1\Admin\Client\ClientController;
 use App\Http\Controllers\Api\V1\Admin\ContactUs\ContactUsController;
 use App\Http\Controllers\Api\V1\Admin\Country\CountryController;
 use App\Http\Controllers\Api\V1\Admin\Faq\FaqController;
+use App\Http\Controllers\Api\V1\Admin\Service\ServiceController;
 use App\Http\Controllers\Api\V1\Admin\Setting\SettingController;
 use App\Http\Controllers\Api\V1\Admin\Subscription\SubscriptionController;
 use Illuminate\Support\Facades\Route;
@@ -66,5 +67,12 @@ Route::prefix('v1/admin')->middleware(['auth:sanctum', 'locale', 'json'])->group
     Route::prefix('subscriptions')->group(function () {
         Route::get('', [SubscriptionController::class, 'index']);
         Route::delete('{subscription}', [SubscriptionController::class, 'delete']);
+    });
+    Route::prefix('services')->group(function () {
+        Route::get('', [ServiceController::class, 'index']);
+        Route::get('{service}', [ServiceController::class, 'show']);
+        Route::post('', [ServiceController::class, 'store']);
+        Route::patch('{service}', [ServiceController::class, 'update']);
+        Route::delete('{service}', [ServiceController::class, 'delete']);
     });
 });
