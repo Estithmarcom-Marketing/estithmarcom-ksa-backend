@@ -46,7 +46,7 @@ class UpdateServiceRequest extends FormRequest
             'slug_ar' => ['nullable', 'string', 'max:255', Rule::unique('services', 'slug_ar')->ignore($serviceId)],
             'slug_en' => ['nullable', 'string', 'max:255', Rule::unique('services', 'slug_en')->ignore($serviceId)],
 
-            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:10240'],
+            'image' => ['nullable', 'image:allow_svg', 'mimes:jpg,jpeg,png,webp,svg', 'max:10240'],
         ];
     }
 }

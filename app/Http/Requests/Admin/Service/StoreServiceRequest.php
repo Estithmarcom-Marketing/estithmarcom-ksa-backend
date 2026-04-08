@@ -40,7 +40,7 @@ class StoreServiceRequest extends FormRequest
             'meta_description_ar' => ['nullable', 'string'],
             'meta_description_en' => ['nullable', 'string'],
 
-            'image' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:10240'],
+            'image' => ['required', 'image:allow_svg', 'mimes:jpg,jpeg,png,webp,svg', 'max:10240'],
 
         ];
     }
