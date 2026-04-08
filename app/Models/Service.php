@@ -37,4 +37,8 @@ class Service extends Model implements HasMedia
     {
         return $query->where('published', $value);
     }
+    public function requests()
+    {
+        return $this->hasMany(RequestService::class);
+    }
 }

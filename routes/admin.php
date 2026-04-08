@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\V1\Admin\Client\ClientController;
 use App\Http\Controllers\Api\V1\Admin\ContactUs\ContactUsController;
 use App\Http\Controllers\Api\V1\Admin\Country\CountryController;
 use App\Http\Controllers\Api\V1\Admin\Faq\FaqController;
+use App\Http\Controllers\Api\V1\Admin\RequestService\RequestServiceController;
 use App\Http\Controllers\Api\V1\Admin\Service\ServiceController;
 use App\Http\Controllers\Api\V1\Admin\Setting\SettingController;
 use App\Http\Controllers\Api\V1\Admin\Subscription\SubscriptionController;
@@ -74,5 +75,11 @@ Route::prefix('v1/admin')->middleware(['auth:sanctum', 'locale', 'json'])->group
         Route::post('', [ServiceController::class, 'store']);
         Route::patch('{service}', [ServiceController::class, 'update']);
         Route::delete('{service}', [ServiceController::class, 'delete']);
+    });
+    Route::prefix('request-services')->group(function () {
+        Route::get('', [RequestServiceController::class, 'index']);
+        Route::get('{requestService}', [RequestServiceController::class, 'show']);
+        Route::patch('{requestService}', [RequestServiceController::class, 'update']);
+        Route::delete('{requestService}', [RequestServiceController::class, 'delete']);
     });
 });

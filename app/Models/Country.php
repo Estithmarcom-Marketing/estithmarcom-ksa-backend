@@ -31,4 +31,8 @@ class Country extends Model implements HasMedia
     {
         return $query->where('active', $value);
     }
+    public function requests()
+    {
+        return $this->hasMany(RequestService::class);
+    }
 }

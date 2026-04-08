@@ -16,22 +16,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
         User::create([
             'name' => 'Admin',
             'email' => 'admin@estithmarcom.com',
             'password' => Hash::make('password'),
         ]);
-        $this->call(CountrySeeder::class);
-        $this->call(FaqSeeder::class);
-        $this->call(SettingSeeder::class);
-        $this->call(ContactUsSeeder::class);
-        $this->call(BlogSeeder::class);
-        $this->call(ClientSeeder::class);
+        $this->call([
+            CountrySeeder::class,
+            FaqSeeder::class,
+            SettingSeeder::class,
+            ContactUsSeeder::class,
+            BlogSeeder::class,
+            ClientSeeder::class,
+            ServiceSeeder::class,
+            RequestServiceSeeder::class
+        ]);
     }
 }
