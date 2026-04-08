@@ -29,7 +29,8 @@ class DatabaseSeeder extends Seeder
             BlogSeeder::class,
             ClientSeeder::class,
             ServiceSeeder::class,
-            RequestServiceSeeder::class
+            RequestServiceSeeder::class,
+            FreeZoneSeeder::class
         ]);
     }
 }

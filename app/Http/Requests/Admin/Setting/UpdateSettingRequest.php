@@ -25,7 +25,7 @@ class UpdateSettingRequest extends FormRequest
         return [
             'name_ar' => 'sometimes|string|max:255',
             'name_en' => 'sometimes|string|max:255',
-            'phone' => 'sometimes|string|regex:/^9665\d{8}$/',
+            'phone' => 'sometimes|string|phone:AUTO',
             'email' => 'sometimes|email:rfc,dns',
             'address' => 'sometimes|string|max:255',
             'facebook' => 'sometimes|url',

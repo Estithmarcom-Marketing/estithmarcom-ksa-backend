@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\V1\Admin\Client\ClientController;
 use App\Http\Controllers\Api\V1\Admin\ContactUs\ContactUsController;
 use App\Http\Controllers\Api\V1\Admin\Country\CountryController;
 use App\Http\Controllers\Api\V1\Admin\Faq\FaqController;
+use App\Http\Controllers\Api\V1\Admin\FreeZone\FreeZoneController;
 use App\Http\Controllers\Api\V1\Admin\RequestService\RequestServiceController;
 use App\Http\Controllers\Api\V1\Admin\Service\ServiceController;
 use App\Http\Controllers\Api\V1\Admin\Setting\SettingController;
@@ -81,5 +82,12 @@ Route::prefix('v1/admin')->middleware(['auth:sanctum', 'locale', 'json'])->group
         Route::get('{requestService}', [RequestServiceController::class, 'show']);
         Route::patch('{requestService}', [RequestServiceController::class, 'update']);
         Route::delete('{requestService}', [RequestServiceController::class, 'delete']);
+    });
+    Route::prefix('free-zones')->group(function () {
+        Route::get('', [FreeZoneController::class, 'index']);
+        Route::get('{freeZone}', [FreeZoneController::class, 'show']);
+        Route::post('', [FreeZoneController::class, 'store']);
+        Route::patch('{freeZone}', [FreeZoneController::class, 'update']);
+        Route::delete('{freeZone}', [FreeZoneController::class, 'delete']);
     });
 });
