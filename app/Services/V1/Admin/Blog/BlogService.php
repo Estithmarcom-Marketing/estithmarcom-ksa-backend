@@ -11,7 +11,10 @@ class BlogService
         $per_page = $data['per_page'] ?? 10;
 
         return Blog::query()
+            ->when($data['published'] ?? null, fn($q, $v) => $q->published($v))
+            ->when($data['search'] ?? null, fn($q, $v) => $q->search($v))
             ->with('media')
+            ->list('id', 'title_ar', 'title_en', 'published', 'created_at')
             ->latest()
             ->paginate($per_page);
     }

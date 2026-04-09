@@ -41,4 +41,12 @@ class Service extends Model implements HasMedia
     {
         return $this->hasMany(RequestService::class);
     }
+    public function scopeSearch($query, $term)
+    {
+        $term = "%$term%";
+        $query->where(function ($query) use ($term) {
+            $query->where('title_ar', 'like', $term)
+                ->orWhere('title_en', 'like', $term);
+        });
+    }
 }

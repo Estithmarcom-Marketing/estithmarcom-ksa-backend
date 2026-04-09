@@ -25,6 +25,8 @@ class ListFaqsRequest extends FormRequest
         return [
             'page' => ['sometimes', 'integer', 'min:1'],
             'per_page' => ['sometimes', 'integer', 'min:1', 'max:50'],
+            'published' => ['sometimes', 'boolean'],
+            'search' => ['sometimes', 'string', 'max:255'],
         ];
     }
 }

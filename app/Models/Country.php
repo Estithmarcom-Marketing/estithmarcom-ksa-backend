@@ -31,6 +31,14 @@ class Country extends Model implements HasMedia
     {
         return $query->where('active', $value);
     }
+    public function scopeSearch($query, $term)
+    {
+        $term = "%$term%";
+        $query->where(function ($query) use ($term) {
+            $query->where('name_ar', 'like', $term)
+                ->orWhere('name_en', 'like', $term);
+        });
+    }
     public function requests()
     {
         return $this->hasMany(RequestService::class);

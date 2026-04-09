@@ -10,7 +10,13 @@ class CountryService
     {
         $per_page = $data['per_page'] ?? 10;
 
-        return Country::with('media')->latest()->paginate($per_page);
+        return Country::query()
+            ->when($data['active'] ?? null, fn($q, $v) => $q->active($v))
+            ->when($data['search'] ?? null, fn($q, $v) => $q->search($v))
+            ->with('media')
+            ->select('id', 'name_ar', 'name_en', 'active', 'created_at')
+            ->latest()
+            ->paginate($per_page);
     }
 
     public function show(Country $country)

@@ -10,7 +10,13 @@ class ServiceManager
     {
         $per_page = $data['per_page'] ?? 10;
 
-        return Service::with('media')->latest()->paginate($per_page);
+        return Service::query()
+            ->when($data['published'] ?? null, fn($q, $v) => $q->published($v))
+            ->when($data['search'] ?? null, fn($q, $v) => $q->search($v))
+            ->with('media')
+            ->select('id', 'title_ar', 'title_en', 'published', 'created_at')
+            ->latest()
+            ->paginate($per_page);
     }
 
     public function show(Service $service)

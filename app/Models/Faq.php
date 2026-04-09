@@ -25,4 +25,13 @@ class Faq extends Model
     {
         return $query->where('published', $value);
     }
+    public function scopeSearch($query, $term)
+    {
+        return $query->where(function ($query) use ($term) {
+            $query->where('question_ar', 'like', '%' . $term . '%')
+                ->orWhere('question_en', 'like', '%' . $term . '%')
+                ->orWhere('answer_ar', 'like', '%' . $term . '%')
+                ->orWhere('answer_en', 'like', '%' . $term . '%');
+        });
+    }
 }

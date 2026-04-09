@@ -39,4 +39,12 @@ class Blog extends Model implements HasMedia
     {
         return $query->where('published', $value);
     }
+    public function scopeSearch($query, $term)
+    {
+        $term = "%$term%";
+        $query->where(function ($query) use ($term) {
+            $query->where('title_ar', 'like', $term)
+                ->orWhere('title_en', 'like', $term);
+        });
+    }
 }

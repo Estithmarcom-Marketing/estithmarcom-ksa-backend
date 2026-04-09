@@ -10,7 +10,12 @@ class FaqService
     {
         $per_page = $data['per_page'] ?? 10;
 
-        return Faq::latest()->paginate($per_page);
+        return Faq::query()
+            ->when($data['published'] ?? null, fn($q, $v) => $q->published($v))
+            ->when($data['search'] ?? null, fn($q, $v) => $q->search($v))
+            ->select('id', 'question_ar', 'question_en', 'published', 'created_at')
+            ->latest()
+            ->paginate($per_page);
     }
 
     public function store(array $data)
