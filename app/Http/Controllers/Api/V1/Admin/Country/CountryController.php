@@ -12,6 +12,8 @@ use App\Services\V1\Admin\Country\CountryService;
 use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
+use Dedoc\Scramble\Attributes\Group;
+#[Group('Admin Country')]
 
 class CountryController extends Controller
 {

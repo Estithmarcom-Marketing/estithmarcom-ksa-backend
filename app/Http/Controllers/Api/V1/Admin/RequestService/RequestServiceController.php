@@ -12,7 +12,9 @@ use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
+use Dedoc\Scramble\Attributes\Group;
 
+#[Group('Admin Request Service')]
 class RequestServiceController extends Controller
 {
     use ApiResponse;

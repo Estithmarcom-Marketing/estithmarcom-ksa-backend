@@ -11,7 +11,8 @@ use App\Services\V1\Admin\ContactUs\ContactUsService;
 use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
-
+use Dedoc\Scramble\Attributes\Group;
+#[Group('Admin Contact Us')]
 class ContactUsController extends Controller
 {
     use ApiResponse;

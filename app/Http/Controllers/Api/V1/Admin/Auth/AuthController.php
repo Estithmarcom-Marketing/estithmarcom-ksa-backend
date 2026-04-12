@@ -9,6 +9,9 @@ use App\Services\V1\Admin\Auth\AuthService;
 use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
+use Dedoc\Scramble\Attributes\Group;
+
+#[Group('Admin Auth')]
 
 class AuthController extends Controller
 {

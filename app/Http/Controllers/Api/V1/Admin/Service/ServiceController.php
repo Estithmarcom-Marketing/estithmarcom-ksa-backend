@@ -12,7 +12,9 @@ use App\Services\V1\Admin\Service\ServiceManager;
 use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
+use Dedoc\Scramble\Attributes\Group;
 
+#[Group('Admin Service')]
 class ServiceController extends Controller
 {
     use ApiResponse;
@@ -58,12 +60,10 @@ class ServiceController extends Controller
             $service = ServiceResource::make($service);
 
             return ApiResponse::success(['service' => $service], __('service.stored_successfully'), Response::HTTP_CREATED);
-
         } catch (\Exception $e) {
             Log::error('Failed to store service', ['error' => $e->getMessage(), 'request' => $request->validated(), 'method' => __METHOD__]);
 
             return ApiResponse::error(__('service.stored_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
-
         }
     }
 

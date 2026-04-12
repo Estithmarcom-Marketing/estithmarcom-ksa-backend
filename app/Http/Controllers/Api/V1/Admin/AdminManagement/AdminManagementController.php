@@ -12,7 +12,8 @@ use App\Services\V1\Admin\AdminManagement\AdminManagementService;
 use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
-
+use Dedoc\Scramble\Attributes\Group;
+#[Group('Admin Management')]
 class AdminManagementController extends Controller
 {
     use ApiResponse;

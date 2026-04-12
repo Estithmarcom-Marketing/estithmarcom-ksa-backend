@@ -12,7 +12,8 @@ use App\Services\V1\Admin\Blog\BlogService;
 use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
-
+use Dedoc\Scramble\Attributes\Group;
+#[Group('Admin Blog')]
 class BlogController extends Controller
 {
     use ApiResponse;

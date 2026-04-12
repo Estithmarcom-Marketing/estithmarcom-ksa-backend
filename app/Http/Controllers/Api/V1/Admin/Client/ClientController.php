@@ -12,7 +12,8 @@ use App\Services\V1\Admin\Client\ClientService;
 use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
-
+use Dedoc\Scramble\Attributes\Group;
+#[Group('Admin Client')]
 class ClientController extends Controller
 {
     use ApiResponse;

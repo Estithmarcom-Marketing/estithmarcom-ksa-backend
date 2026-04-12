@@ -9,7 +9,9 @@ use App\Services\V1\Admin\Setting\SettingService;
 use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
+use Dedoc\Scramble\Attributes\Group;
 
+#[Group('Admin Settings')]
 class SettingController extends Controller
 {
     use ApiResponse;
@@ -25,7 +27,6 @@ class SettingController extends Controller
             return ApiResponse::success([
                 'settings' => $settings,
             ], __('setting.listed_successfully'));
-
         } catch (\Exception $e) {
             Log::error('Failed to list settings', ['error' => $e->getMessage(), 'method' => __METHOD__]);
 
@@ -42,7 +43,6 @@ class SettingController extends Controller
             return ApiResponse::success([
                 'settings' => $settings,
             ], __('setting.updated_successfully'));
-
         } catch (\Exception $e) {
             Log::error('Failed to update settings', ['error' => $e->getMessage(), 'method' => __METHOD__]);
 
