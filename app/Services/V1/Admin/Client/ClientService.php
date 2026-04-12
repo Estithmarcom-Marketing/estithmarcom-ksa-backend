@@ -22,8 +22,9 @@ class ClientService
     {
         $client = Client::create([
             'link' => $data['link'],
-            'published' => $data['published']?? false,
-            'alt' => $data['alt'],
+            'published' => $data['published'] ?? false,
+            'alt_ar' => $data['alt_ar'],
+            'alt_en' => $data['alt_en'],
         ]);
         if (! empty($data['image'])) {
             $client->addMedia($data['image'])->toMediaCollection('client');
@@ -37,7 +38,8 @@ class ClientService
         $client->update([
             'link' => $data['link'] ?? $client->link,
             'published' => $data['published'] ?? $client->published,
-            'alt' => $data['alt'] ?? $client->alt,
+            'alt_ar' => $data['alt_ar'] ?? $client->alt_ar,
+            'alt_en' => $data['alt_en'] ?? $client->alt_en,
         ]);
         if (! empty($data['image'])) {
             $client->clearMediaCollection('client');

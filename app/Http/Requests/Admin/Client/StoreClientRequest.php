@@ -24,7 +24,8 @@ class StoreClientRequest extends FormRequest
     {
         return [
             'image' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:10240'],
-            'alt' => ['required', 'string', 'max:255'],
+            'alt_ar' => ['required', 'string', 'max:255'],
+            'alt_en' => ['required', 'string', 'max:255'],
             'link' => ['required', 'url'],
             'published' => ['required', 'boolean']
         ];

@@ -24,7 +24,8 @@ class UpdateClientRequest extends FormRequest
     {
         return [
             'image' => ['sometimes', 'image', 'mimes:jpg,jpeg,png,webp', 'max:10240'],
-            'alt' => ['sometimes', 'string', 'max:255'],
+            'alt_ar' => ['sometimes', 'string', 'max:255'],
+            'alt_en' => ['sometimes', 'string', 'max:255'],
             'link' => ['sometimes', 'url'],
             'published' => ['sometimes', 'boolean']
         ];

@@ -8,7 +8,8 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 #[Fillable([
-    'alt',
+    'alt_ar',
+    'alt_en',
     'link',
     'active',
 ])]

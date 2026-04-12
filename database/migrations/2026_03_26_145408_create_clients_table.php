@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
-            $table->string('alt');
+            $table->string('alt_ar');
+            $table->string('alt_en');
             $table->string('link');
             $table->boolean('active')->default(false);
             $table->timestamps();
