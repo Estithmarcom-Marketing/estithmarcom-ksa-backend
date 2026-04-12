@@ -21,7 +21,7 @@ class ServiceResource extends JsonResource
             'slug_ar' => $this->slug_ar,
             'slug_en' => $this->slug_en,
             'published' => (bool) $this->published,
-            'image' => $this->whenLoaded('media', $this->getFirstMediaUrl('service')),
+            'image' => $this->whenLoaded('media', fn() => $this->getFirstMediaUrl('service'), ''),
             'short_description_ar' => $this->short_description_ar,
             'short_description_en' => $this->short_description_en,
             'long_description_ar' => $this->long_description_ar,

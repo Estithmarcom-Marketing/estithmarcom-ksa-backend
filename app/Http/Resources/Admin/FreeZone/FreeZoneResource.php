@@ -21,7 +21,7 @@ class FreeZoneResource extends JsonResource
             'slug_ar' => $this->slug_ar,
             'slug_en' => $this->slug_en,
             'active' => (bool) $this->active,
-            'image' => $this->whenLoaded('media', $this->getFirstMediaUrl('free_zone')),
+            'image' => $this->whenLoaded('media',fn() => $this->getFirstMediaUrl('free_zone'),''),
             'content_ar' => $this->content_ar,
             'content_en' => $this->content_en,
             'created_at' => $this->created_at,

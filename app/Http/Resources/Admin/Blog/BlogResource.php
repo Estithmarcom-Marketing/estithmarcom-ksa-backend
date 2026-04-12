@@ -22,7 +22,7 @@ class BlogResource extends JsonResource
             'subtitle_en' => $this->subtitle_en,
             'slug_ar' => $this->slug_ar,
             'slug_en' => $this->slug_en,
-            'image' => $this->whenLoaded('media', $this->getFirstMediaUrl('blog')),
+            'image' => $this->whenLoaded('media',fn() => $this->getFirstMediaUrl('blog'),''),
             'short_content_ar' => $this->short_content_ar,
             'short_content_en' => $this->short_content_en,
             'content_ar' => $this->content_ar,

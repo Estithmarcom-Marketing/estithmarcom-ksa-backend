@@ -14,12 +14,11 @@ class CountryResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $locale = app()->getLocale();
         return [
             'id' => $this->id,
-            'name' => $this->{"name_$locale"},
-            'title' => $this->{"title_$locale"},
-            'description' => $this->{"description_$locale"},
+            'name' => $this->name,
+            'title' => $this->title,
+            'description' => $this->description,
             'image' => $this->whenLoaded('media', $this->getFirstMediaUrl('country')),
         ];
     }

@@ -9,7 +9,7 @@ class CountryService
     public function list()
     {
         $locale = app()->getLocale();
-        return Country::select('id', "name_$locale", "title_$locale", "description_$locale")
+        return Country::select('id', "name_$locale as name", "title_$locale as title", "description_$locale as description")
             ->active(true)
             ->with('media')
             ->paginate(15);
@@ -17,7 +17,7 @@ class CountryService
     public function listWithoutPagination()
     {
         $locale = app()->getLocale();
-        return Country::select('id', "name_$locale")
+        return Country::select('id', "name_$locale as name")
             ->active(true)
             ->get();
     }

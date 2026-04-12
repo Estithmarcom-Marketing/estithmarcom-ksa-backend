@@ -23,7 +23,7 @@ class CountryResource extends JsonResource
             'description_ar' => $this->description_ar,
             'description_en' => $this->description_en,
             'active' => (bool) $this->active,
-            'image' => $this->whenLoaded('media', $this->getFirstMediaUrl('country')),
+            'image' => $this->whenLoaded('media',fn() => $this->getFirstMediaUrl('country'),''),
             'created_at' => $this->created_at,
         ];
     }

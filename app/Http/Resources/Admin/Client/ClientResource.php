@@ -16,7 +16,7 @@ class ClientResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'image' => $this->whenLoaded('media', $this->getFirstMediaUrl('client')),
+            'image' => $this->whenLoaded('media',fn() => $this->getFirstMediaUrl('client'),''),
             'alt' => $this->alt,
             'link' => $this->link,
             'created_at' => $this->created_at,
