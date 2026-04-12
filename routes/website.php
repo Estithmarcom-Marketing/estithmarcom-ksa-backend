@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\Website\Blog\BlogController;
 use App\Http\Controllers\Api\V1\Website\Country\CountryController;
 use App\Http\Controllers\Api\V1\Website\Service\ServiceController;
 use App\Http\Controllers\Api\V1\Website\Setting\SettingController;
@@ -16,5 +17,9 @@ Route::prefix('v1/website')->middleware(['locale', 'json'])->group(function () {
         Route::get('', [ServiceController::class, 'index']);
         Route::get('unpaginated', [ServiceController::class, 'listWithoutPagination']);
         Route::get('{identifier}', [ServiceController::class, 'show']);
+    });
+    Route::prefix('blogs')->group(function () {
+        Route::get('', [BlogController::class, 'index']);
+        Route::get('{identifier}', [BlogController::class, 'show']);
     });
 });

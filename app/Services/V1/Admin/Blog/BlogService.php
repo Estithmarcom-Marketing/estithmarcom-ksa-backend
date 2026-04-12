@@ -14,7 +14,7 @@ class BlogService
             ->when($data['published'] ?? null, fn($q, $v) => $q->published($v))
             ->when($data['search'] ?? null, fn($q, $v) => $q->search($v))
             ->with('media')
-            ->list('id', 'title_ar', 'title_en', 'published', 'created_at')
+            ->select('id', 'title_ar', 'title_en', 'published', 'created_at')
             ->latest()
             ->paginate($per_page);
     }
