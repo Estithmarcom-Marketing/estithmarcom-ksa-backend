@@ -24,7 +24,8 @@ class ListServicesRequest extends FormRequest
     {
         return [
             'page' => ['sometimes', 'integer', 'min:1'],
-            'per_page' => ['sometimes', 'integer', 'between:1,50']
+            'per_page' => ['sometimes', 'integer', 'between:1,50'],
+            'search' => ['sometimes', 'string', 'max:255'],
         ];
     }
 }
