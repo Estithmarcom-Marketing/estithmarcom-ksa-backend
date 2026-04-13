@@ -10,5 +10,11 @@ use Illuminate\Database\Eloquent\Model;
 ])]
 class Subscription extends Model
 {
-    //
+    public function scopeSearch($query, $term)
+    {
+        $term = "%$term%";
+        return $query->where(function ($query) use ($term) {
+            $query->where('email', 'like', $term);
+        });
+    }
 }

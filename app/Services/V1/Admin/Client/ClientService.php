@@ -10,7 +10,11 @@ class ClientService
     {
         $per_page = $data['per_page'] ?? 10;
 
-        return Client::with('media')->latest()->paginate($per_page);
+        return Client::query()
+            ->when($data['active'] ?? null, fn($q, $v) => $q->active($v))
+            ->with('media')
+            ->latest()
+            ->paginate($per_page);
     }
 
     public function show(Client $client)

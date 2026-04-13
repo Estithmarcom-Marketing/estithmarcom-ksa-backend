@@ -12,6 +12,7 @@ class ContactUsService
 
         return ContactUs::query()
             ->when($data['search'] ?? null, fn($q, $v) => $q->search($v))
+            ->when($data['contacted'] ?? null, fn($q, $v) => $q->contacted($v))
             ->latest()
             ->paginate($per_page);
     }

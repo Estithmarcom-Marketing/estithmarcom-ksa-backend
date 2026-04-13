@@ -10,7 +10,10 @@ class SubscriptionService
     {
         $per_page = $data['per_page'] ?? 10;
 
-        return Subscription::latest()->paginate($per_page);
+        return Subscription::query()
+            ->when($data['search'] ?? null, fn($q, $v) => $q->search($v))
+            ->latest()
+            ->paginate($per_page);
     }
 
     public function destroy(Subscription $subscription)
