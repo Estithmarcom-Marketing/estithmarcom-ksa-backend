@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\V1\Website\FreeZone\FreeZoneController;
 use App\Http\Controllers\Api\V1\Website\RequestService\RequestServiceController;
 use App\Http\Controllers\Api\V1\Website\Service\ServiceController;
 use App\Http\Controllers\Api\V1\Website\Setting\SettingController;
+use App\Http\Controllers\Api\V1\Website\Subscription\SubscriptionController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1/website')->middleware(['locale', 'json'])->group(function () {
@@ -35,4 +36,5 @@ Route::prefix('v1/website')->middleware(['locale', 'json'])->group(function () {
     Route::get('faqs', FaqController::class);
     Route::post('contact-us', ContactUsController::class);
     Route::post('request-service', RequestServiceController::class);
+    Route::post('subscriptions', SubscriptionController::class);
 });
