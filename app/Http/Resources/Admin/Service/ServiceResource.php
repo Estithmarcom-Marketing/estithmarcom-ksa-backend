@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Admin\Service;
 
+use App\Http\Resources\Admin\Country\CountryResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -30,6 +31,7 @@ class ServiceResource extends JsonResource
             'meta_title_en' => $this->meta_title_en,
             'meta_description_ar' => $this->meta_description_ar,
             'meta_description_en' => $this->meta_description_en,
+            'countries' => CountryResource::collection($this->whenLoaded('countries', fn() => $this->countries, [])),
             'created_at' => $this->created_at,
         ];
     }

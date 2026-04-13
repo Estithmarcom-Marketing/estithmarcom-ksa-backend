@@ -14,4 +14,6 @@ return [
 
     'stored_successfully' => 'تم ارسال طلب الخدمة بنجاح',
     'stored_failed' => 'فشل في ارسال طلب الخدمة',
+
+    'service_not_available_in_country' => 'الخدمة غير متاحة في هذه الدولة.',
 ];

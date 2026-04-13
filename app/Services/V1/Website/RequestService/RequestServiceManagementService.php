@@ -33,20 +33,23 @@ class RequestServiceManagementService
         return str_replace(['+', ' ', '-'], '', $phone);
     }
 
-    private function validateData(array $data)
+    private function validateData(array $data): void
     {
-        $country = Country::where('id', $data['country_id'])
-            ->active(true)
-            ->first();
-        if (! $country) {
-            throw new \LogicException('Country not found');
-        }
-
-        $service = Service::where('id', $data['service_id'])
+        $this->validateServiceAvailableInCountry($data);
+    }
+    private function validateServiceAvailableInCountry(array $data): void
+    {
+        $exists = Service::query()
             ->published(true)
-            ->first();
-        if (! $service) {
-            throw new \LogicException('Service not found');
+            ->where('id', $data['service_id'])
+            ->whereHas('countries', function ($query) use ($data) {
+                $query->where('countries.id', $data['country_id'])
+                    ->active(true);
+            })
+            ->exists();
+
+        if (! $exists) {
+            throw new \LogicException(__('request_service.service_not_available_in_country'));
         }
     }
 }

@@ -41,6 +41,10 @@ class Service extends Model implements HasMedia
     {
         return $this->hasMany(RequestService::class);
     }
+    public function countries()
+    {
+        return $this->belongsToMany(Country::class)->withTimestamps();
+    }
     public function scopeSearch($query, $term)
     {
         $term = "%$term%";

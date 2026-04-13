@@ -21,7 +21,7 @@ class ServiceManager
 
     public function show(Service $service)
     {
-        return $service->load('media');
+        return $service->load(['media', 'countries']);
     }
 
     public function store(array $data)
@@ -44,6 +44,7 @@ class ServiceManager
             'slug_ar' => $slug_ar,
             'slug_en' => $slug_en,
         ]);
+        $this->syncCountries($service, $data);
         if (isset($data['image'])) {
             $service->addMedia($data['image'])->toMediaCollection('service');
         }
@@ -70,6 +71,7 @@ class ServiceManager
             'slug_ar' => $slug_ar,
             'slug_en' => $slug_en,
         ]);
+        $this->syncCountries($service, $data);
         if (isset($data['image'])) {
             $service->clearMediaCollection('service');
             $service->addMedia($data['image'])->toMediaCollection('service');
@@ -91,5 +93,11 @@ class ServiceManager
         }
 
         return make_slug($new_title, $locale, Service::class, "slug_$locale");
+    }
+    private function syncCountries(Service $service, array $data): void
+    {
+        if (isset($data['country_ids'])) {
+            $service->countries()->sync($data['country_ids']);
+        }
     }
 }

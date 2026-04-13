@@ -47,6 +47,16 @@ class UpdateServiceRequest extends FormRequest
             'slug_en' => ['nullable', 'string', 'max:255', Rule::unique('services', 'slug_en')->ignore($serviceId)],
 
             'image' => ['nullable', 'image:allow_svg', 'mimes:jpg,jpeg,png,webp,svg', 'max:10240'],
+            'country_ids' => ['nullable', 'array'],
+            'country_ids.*' => ['exists:countries,id'],
         ];
+    }
+    protected function prepareForValidation()
+    {
+        if (is_string($this->country_ids)) {
+            $this->merge([
+                'country_ids' => [$this->country_ids]
+            ]);
+        }
     }
 }

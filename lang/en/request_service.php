@@ -15,4 +15,5 @@ return [
     'stored_successfully' => 'Request service stored successfully',
     'stored_failed' => 'Failed to store request service',
 
+    'service_not_available_in_country' => 'Service is not available in this country.',
 ];

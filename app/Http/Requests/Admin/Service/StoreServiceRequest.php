@@ -41,7 +41,17 @@ class StoreServiceRequest extends FormRequest
             'meta_description_en' => ['nullable', 'string'],
 
             'image' => ['required', 'image:allow_svg', 'mimes:jpg,jpeg,png,webp,svg', 'max:10240'],
+            'country_ids' => ['nullable', 'array'],
+            'country_ids.*' => ['exists:countries,id'],
 
         ];
+    }
+    protected function prepareForValidation()
+    {
+        if (is_string($this->country_ids)) {
+            $this->merge([
+                'country_ids' => [$this->country_ids]
+            ]);
+        }
     }
 }

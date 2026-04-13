@@ -20,6 +20,9 @@ class RequestServiceController extends Controller
         try {
             $this->service->store($request->validated());
             return ApiResponse::success([], __('request_service.stored_successfully'), Response::HTTP_CREATED);
+        } catch (\LogicException $e) {
+            Log::error('Failed to store request service', ['error' => $e->getMessage(), 'request' => $request->validated(), 'method' => __METHOD__]);
+            return ApiResponse::error($e->getMessage(), Response::HTTP_BAD_REQUEST);
         } catch (\Throwable $th) {
             Log::error('Failed to store request service', ['error' => $th->getMessage(), 'request' => $request->validated(), 'method' => __METHOD__]);
             return ApiResponse::error(__('request_service.stored_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);

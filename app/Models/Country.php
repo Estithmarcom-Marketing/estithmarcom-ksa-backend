@@ -43,4 +43,8 @@ class Country extends Model implements HasMedia
     {
         return $this->hasMany(RequestService::class);
     }
+    public function services()
+    {
+        return $this->belongsToMany(Service::class)->withTimestamps();
+    }
 }
