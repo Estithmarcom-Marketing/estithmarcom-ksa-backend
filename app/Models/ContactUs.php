@@ -25,4 +25,13 @@ class ContactUs extends Model
     {
         return $query->where('contacted', $value);
     }
+    public function scopeSearch($query, $term)
+    {
+        $term = "%$term%";
+        return $query->where(function ($query) use ($term) {
+            $query->where('name', 'like', $term)
+                ->orWhere('email', 'like', $term)
+                ->orWhere('phone', 'like', $term);
+        });
+    }
 }

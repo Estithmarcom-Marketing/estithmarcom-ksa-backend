@@ -10,7 +10,10 @@ class ContactUsService
     {
         $per_page = $data['per_page'] ?? 10;
 
-        return ContactUs::latest()->paginate($per_page);
+        return ContactUs::query()
+            ->when($data['search'] ?? null, fn($q, $v) => $q->search($v))
+            ->latest()
+            ->paginate($per_page);
     }
 
     public function show(ContactUs $contactUs)
