@@ -22,7 +22,7 @@ class ContactUsController extends Controller
     {
         try {
             $this->service->store($request->validated());
-            return ApiResponse::success([], __('contact_us.stored_successfully'), Response::HTTP_OK);
+            return ApiResponse::success([], __('contact_us.stored_successfully'), Response::HTTP_CREATED);
         } catch (\Throwable $th) {
             Log::error('Failed to store contact us message', ['error' => $th->getMessage(), 'request' => $request->validated(), 'method' => __METHOD__]);
             return ApiResponse::error(__('contact_us.stored_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);

@@ -11,4 +11,7 @@ return [
 
     'deleted_successfully' => 'تم حذف طلب الخدمة بنجاح',
     'deleted_failed' => 'فشل في حذف طلب الخدمة',
+
+    'stored_successfully' => 'تم ارسال طلب الخدمة بنجاح',
+    'stored_failed' => 'فشل في ارسال طلب الخدمة',
 ];
