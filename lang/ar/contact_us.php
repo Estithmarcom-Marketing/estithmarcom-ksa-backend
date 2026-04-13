@@ -10,6 +10,9 @@ return [
     'updated_successfully' => 'تم تحديث الاستفسار بنجاح',
     'updated_failed' => 'فشل تحديث الاستفسار',
 
+    'stored_successfully' => 'تم ارسال الاستفسار بنجاح',
+    'stored_failed' => 'فشل ارسال الاستفسار',
+
     'deleted_successfully' => 'تم حذف الاستفسار بنجاح',
     'deleted_failed' => 'فشل حذف الاستفسار',
 ];

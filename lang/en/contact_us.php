@@ -9,6 +9,9 @@ return [
     'updated_successfully' => 'Contact us updated successfully',
     'updated_failed' => 'Failed to update contact us',
 
+    'stored_successfully' => 'Contact us message sent successfully',
+    'stored_failed' => 'Failed to send contact us message',
+
     'deleted_successfully' => 'Contact us deleted successfully',
     'deleted_failed' => 'Failed to delete contact us',
 ];

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\Website\Blog\BlogController;
 use App\Http\Controllers\Api\V1\Website\Client\ClientController;
+use App\Http\Controllers\Api\V1\Website\ContactUs\ContactUsController;
 use App\Http\Controllers\Api\V1\Website\Country\CountryController;
 use App\Http\Controllers\Api\V1\Website\Faq\FaqController;
 use App\Http\Controllers\Api\V1\Website\FreeZone\FreeZoneController;
@@ -31,4 +32,5 @@ Route::prefix('v1/website')->middleware(['locale', 'json'])->group(function () {
         Route::get('{identifier}', [FreeZoneController::class, 'show']);
     });
     Route::get('faqs', FaqController::class);
+    Route::post('contact-us', ContactUsController::class);
 });
