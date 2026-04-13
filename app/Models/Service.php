@@ -53,4 +53,10 @@ class Service extends Model implements HasMedia
                 ->orWhere('title_en', 'like', $term);
         });
     }
+    public function scopeFilterByCountry($query, $country_id)
+    {
+        return $query->whereHas('countries', function ($query) use ($country_id) {
+            $query->where('country_id', $country_id);
+        });
+    }
 }

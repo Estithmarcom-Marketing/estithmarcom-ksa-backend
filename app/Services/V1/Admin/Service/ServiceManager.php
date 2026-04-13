@@ -13,6 +13,7 @@ class ServiceManager
         return Service::query()
             ->when($data['published'] ?? null, fn($q, $v) => $q->published($v))
             ->when($data['search'] ?? null, fn($q, $v) => $q->search($v))
+            ->when($data['country_id'] ?? null, fn($q, $v) => $q->filterByCountry($v))
             ->with('media')
             ->select('id', 'title_ar', 'title_en', 'published', 'created_at')
             ->latest()

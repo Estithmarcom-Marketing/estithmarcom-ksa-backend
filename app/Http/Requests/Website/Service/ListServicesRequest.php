@@ -26,6 +26,7 @@ class ListServicesRequest extends FormRequest
             'page' => ['sometimes', 'integer', 'min:1'],
             'per_page' => ['sometimes', 'integer', 'between:1,50'],
             'search' => ['sometimes', 'string', 'max:255'],
+            'country_id' => ['sometimes', 'integer', 'exists:countries,id'],
         ];
     }
 }
