@@ -26,19 +26,27 @@ class ServiceManager
 
         $service = Service::select(
             'id',
-            "title_$locale as title",
-            "slug_$locale as slug",
-            "short_description_$locale as short_description",
-            "long_description_$locale as long_description",
-            "meta_title_$locale as meta_title",
-            "meta_description_$locale as meta_description"
+            "title_{$locale} as title",
+            "slug_{$locale} as slug",
+            "short_description_{$locale} as short_description",
+            "long_description_{$locale} as long_description",
+            "meta_title_{$locale} as meta_title",
+            "meta_description_{$locale} as meta_description"
         )
-            ->with('media')
+            ->with([
+                'media',
+                'countries' => function ($q) use ($locale) {
+                    $q->select(
+                        'countries.id',
+                        "name_{$locale} as name"
+                    );
+                }
+            ])
             ->published(true)
             ->where(function ($query) use ($identifier) {
-                $query->where('slug_ar', $identifier)
-                    ->orWhere('slug_en', $identifier)
-                    ->orWhere('id', $identifier);
+                $query->where("slug_ar", $identifier)
+                    ->orWhere("slug_en", $identifier)
+                    ->orWhere("id", $identifier);
             })
             ->first();
 
