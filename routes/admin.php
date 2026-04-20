@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\Admin\Blog\BlogController;
 use App\Http\Controllers\Api\V1\Admin\Client\ClientController;
 use App\Http\Controllers\Api\V1\Admin\ContactUs\ContactUsController;
 use App\Http\Controllers\Api\V1\Admin\Country\CountryController;
+use App\Http\Controllers\Api\V1\Admin\DashboardStats\DashboardStatsController;
 use App\Http\Controllers\Api\V1\Admin\Faq\FaqController;
 use App\Http\Controllers\Api\V1\Admin\FreeZone\FreeZoneController;
 use App\Http\Controllers\Api\V1\Admin\RequestService\RequestServiceController;
@@ -90,4 +91,5 @@ Route::prefix('v1/admin')->middleware(['auth:sanctum', 'locale', 'json'])->group
         Route::patch('{freeZone}', [FreeZoneController::class, 'update']);
         Route::delete('{freeZone}', [FreeZoneController::class, 'delete']);
     });
+    Route::get('dashboard-stats', DashboardStatsController::class);
 });
