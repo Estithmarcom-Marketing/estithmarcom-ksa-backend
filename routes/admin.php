@@ -31,6 +31,7 @@ Route::prefix('v1/admin')->middleware(['auth:sanctum', 'locale', 'json'])->group
     });
     Route::prefix('countries')->group(function () {
         Route::get('', [CountryController::class, 'index']);
+        Route::get('unpaginated', [CountryController::class, 'listWithoutPagination']);
         Route::get('{country}', [CountryController::class, 'show']);
         Route::post('', [CountryController::class, 'store']);
         Route::patch('{country}', [CountryController::class, 'update']);

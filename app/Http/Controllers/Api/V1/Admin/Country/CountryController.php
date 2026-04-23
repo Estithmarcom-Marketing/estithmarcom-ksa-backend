@@ -13,6 +13,7 @@ use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 use Dedoc\Scramble\Attributes\Group;
+
 #[Group('Admin Country')]
 
 class CountryController extends Controller
@@ -34,6 +35,21 @@ class CountryController extends Controller
             ], __('country.listed_successfully'));
         } catch (\Exception $e) {
             Log::error('Failed to list countries', ['error' => $e->getMessage(), 'method' => __METHOD__]);
+
+            return ApiResponse::error(__('country.listed_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+    public function listWithoutPagination()
+    {
+        try {
+            $countries = $this->service->listWithoutPagination();
+            $countries = CountryResource::collection($countries);
+
+            return ApiResponse::success([
+                'countries' => $countries,
+            ], __('country.listed_successfully'));
+        } catch (\Exception $e) {
+            Log::error('Failed to list countries without pagination', ['error' => $e->getMessage(), 'method' => __METHOD__]);
 
             return ApiResponse::error(__('country.listed_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
         }

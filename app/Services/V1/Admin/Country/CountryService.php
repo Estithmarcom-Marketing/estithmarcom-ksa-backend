@@ -18,6 +18,12 @@ class CountryService
             ->latest()
             ->paginate($per_page);
     }
+    public function listWithoutPagination()
+    {
+        return Country::select('id', 'name_ar', 'name_en', 'active')
+            ->latest()
+            ->get();
+    }
 
     public function show(Country $country)
     {
