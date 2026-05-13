@@ -17,7 +17,7 @@ RUN composer dump-autoload --optimize --no-dev
 
 FROM php:8.3-fpm-alpine
 
-# ── System dependencies ──────────────────────────────────────────────────────
+# ── System dependencies ───────────────────────────────────────────────────────
 RUN apk add --no-cache \
     nginx \
     supervisor \
@@ -30,6 +30,9 @@ RUN apk add --no-cache \
     libzip-dev \
     oniguruma-dev \
     icu-dev \
+    autoconf \
+    g++ \
+    make \
     && docker-php-ext-configure gd \
         --with-freetype \
         --with-jpeg \
@@ -43,7 +46,14 @@ RUN apk add --no-cache \
         gd \
         zip \
         intl \
-        opcache
+        opcache \
+    # phpredis via PECL installieren
+    # Warum PECL? phpredis ist keine offizielle PHP Extension
+    # sondern eine Community Extension → muss separat installiert werden
+    && pecl install redis \
+    && docker-php-ext-enable redis \
+    # Build Tools wieder entfernen → Image kleiner machen
+    && apk del autoconf g++ make
 
 # ── App files ─────────────────────────────────────────────────────────────────
 WORKDIR /var/www/html
