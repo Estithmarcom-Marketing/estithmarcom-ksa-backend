@@ -48,10 +48,10 @@ class Service extends Model implements HasMedia
     public function scopeSearch($query, $term)
     {
         $term = "%$term%";
-        $query->where(function ($query) use ($term) {
-            $query->where('title_ar', 'like', $term)
-                ->orWhere('title_en', 'like', $term);
-        });
+        $query->whereAny([
+            'title_ar',
+            'title_en',
+        ], 'LIKE', $term);
     }
     public function scopeFilterByCountry($query, $country_id)
     {

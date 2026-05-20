@@ -27,11 +27,11 @@ class Faq extends Model
     }
     public function scopeSearch($query, $term)
     {
-        return $query->where(function ($query) use ($term) {
-            $query->where('question_ar', 'like', '%' . $term . '%')
-                ->orWhere('question_en', 'like', '%' . $term . '%')
-                ->orWhere('answer_ar', 'like', '%' . $term . '%')
-                ->orWhere('answer_en', 'like', '%' . $term . '%');
-        });
+        return $query->whereAny([
+            'question_ar',
+            'question_en',
+            'answer_ar',
+            'answer_en',
+        ], 'LIKE', "%$term%");
     }
 }
