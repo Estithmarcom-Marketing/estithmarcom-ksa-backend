@@ -40,9 +40,15 @@ class StoreServiceRequest extends FormRequest
             'meta_description_ar' => ['nullable', 'string'],
             'meta_description_en' => ['nullable', 'string'],
 
-            'image' => ['required', 'image:allow_svg', 'mimes:jpg,jpeg,png,webp,svg', 'max:10240'],
+            'image' => ['nullable', 'image:allow_svg', 'mimes:jpg,jpeg,png,webp,svg', 'max:10240'],
             'country_ids' => ['nullable', 'array'],
             'country_ids.*' => ['exists:countries,id'],
+            'faqs' => ['sometimes', 'array', 'min:1'],
+            'faqs.*.question_ar' => ['required_with:faqs', 'string', 'max:255'],
+            'faqs.*.question_en' => ['required_with:faqs', 'string', 'max:255'],
+            'faqs.*.answer_ar' => ['required_with:faqs', 'string', 'max:2000'],
+            'faqs.*.answer_en' => ['required_with:faqs', 'string', 'max:2000'],
+            'faqs.*.published' => ['required_with:faqs', 'boolean'],
 
         ];
     }

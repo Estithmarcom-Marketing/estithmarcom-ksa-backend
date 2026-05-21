@@ -12,11 +12,12 @@ class ServiceManager
         $search = $data['search'] ?? null;
         $country_id = $data['country_id'] ?? null;
         $locale = app()->getLocale();
-        return Service::select('id', "title_$locale as title", "slug_$locale as slug", "short_description_$locale as short_description")
+
+        return Service::select(['id', "title_$locale as title", "slug_$locale as slug", "short_description_$locale as short_description"])
             ->with('media')
             ->published(true)
-            ->when($search, fn($q, $v) => $q->search($v))
-            ->when($country_id, fn($q, $v) => $q->filterByCountry($v))
+            ->when(filled($search), fn($q) => $q->search($search))
+            ->when(filled($country_id), fn($q) => $q->filterByCountry($country_id))
             ->latest()
             ->paginate($per_page);
     }
@@ -24,17 +25,28 @@ class ServiceManager
     {
         $locale = app()->getLocale();
 
-        $service = Service::select(
-            'id',
-            "title_{$locale} as title",
-            "slug_{$locale} as slug",
-            "short_description_{$locale} as short_description",
-            "long_description_{$locale} as long_description",
-            "meta_title_{$locale} as meta_title",
-            "meta_description_{$locale} as meta_description"
+        return Service::select(
+            [
+                'id',
+                "title_{$locale} as title",
+                "slug_{$locale} as slug",
+                "short_description_{$locale} as short_description",
+                "long_description_{$locale} as long_description",
+                "meta_title_{$locale} as meta_title",
+                "meta_description_{$locale} as meta_description"
+            ]
         )
             ->with([
                 'media',
+                'faqs' => function ($q) use ($locale) {
+                    $q->select([
+                        'id',
+                        'faqable_id',
+                        'faqable_type',
+                        "question_$locale as question",
+                        "answer_$locale as answer",
+                    ])->published(true);
+                },
                 'countries' => function ($q) use ($locale) {
                     $q->select(
                         'countries.id',
@@ -49,13 +61,11 @@ class ServiceManager
                     ->orWhere("id", $identifier);
             })
             ->first();
-
-        return $service;
     }
     public function listWithoutPagination()
     {
         $locale = app()->getLocale();
-        return Service::select('id', "title_$locale as title")
+        return Service::select(['id', "title_$locale as title"])
             ->published(true)
             ->latest()
             ->get();

@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Admin\Service;
 
 use App\Http\Resources\Admin\Country\CountryResource;
+use App\Http\Resources\Admin\Faq\FaqResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -32,7 +33,10 @@ class ServiceResource extends JsonResource
             'meta_description_ar' => $this->meta_description_ar,
             'meta_description_en' => $this->meta_description_en,
             'countries' => CountryResource::collection($this->whenLoaded('countries', fn() => $this->countries, [])),
+            'faqs' => $this->whenLoaded('faqs', fn() => FaqResource::collection($this->faqs), []),
+
             'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at
         ];
     }
 }

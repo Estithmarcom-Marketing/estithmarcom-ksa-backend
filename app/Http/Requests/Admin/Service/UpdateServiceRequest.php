@@ -49,6 +49,12 @@ class UpdateServiceRequest extends FormRequest
             'image' => ['nullable', 'image:allow_svg', 'mimes:jpg,jpeg,png,webp,svg', 'max:10240'],
             'country_ids' => ['nullable', 'array'],
             'country_ids.*' => ['exists:countries,id'],
+            'faqs' => ['nullable', 'array'],
+            'faqs.*.question_ar' => ['required_with:faqs', 'string', 'max:255'],
+            'faqs.*.question_en' => ['required_with:faqs', 'string', 'max:255'],
+            'faqs.*.answer_ar' => ['required_with:faqs', 'string', 'max:2000'],
+            'faqs.*.answer_en' => ['required_with:faqs', 'string', 'max:2000'],
+            'faqs.*.published' => ['required_with:faqs', 'boolean'],
         ];
     }
     protected function prepareForValidation()
