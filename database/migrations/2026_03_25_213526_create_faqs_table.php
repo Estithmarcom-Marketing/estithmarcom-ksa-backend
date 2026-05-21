@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('answer_ar');
             $table->text('answer_en');
             $table->boolean('published')->default(false);
+            $table->nullableMorphs('faqable'); 
             $table->timestamps();
         });
     }

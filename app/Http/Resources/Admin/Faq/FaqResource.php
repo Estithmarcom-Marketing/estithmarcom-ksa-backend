@@ -20,8 +20,9 @@ class FaqResource extends JsonResource
             'question_en' => $this->question_en,
             'answer_ar' => $this->answer_ar,
             'answer_en' => $this->answer_en,
-            'published' => (bool) $this->published,
+            'published' => $this->published,
             'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at
         ];
     }
 }

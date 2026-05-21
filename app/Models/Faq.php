@@ -20,6 +20,15 @@ class Faq extends Model
             'published' => 'boolean',
         ];
     }
+    public function faqable()
+    {
+        return $this->morphTo();
+    }
+    public function scopeGlobal($query)
+    {
+        return $query->whereNull('faqable_id')
+            ->whereNull('faqable_type');
+    }
 
     public function scopePublished($query, $value = true)
     {

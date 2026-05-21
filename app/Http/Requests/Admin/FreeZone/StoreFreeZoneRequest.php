@@ -31,6 +31,12 @@ class StoreFreeZoneRequest extends FormRequest
             'content_ar' => ['required', 'string'],
             'content_en' => ['required', 'string'],
             'image' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:10240'],
+            'faqs' => ['sometimes', 'array', 'min:1'],
+            'faqs.*.question_ar' => ['required_with:faqs', 'string', 'max:255'],
+            'faqs.*.question_en' => ['required_with:faqs', 'string', 'max:255'],
+            'faqs.*.answer_ar' => ['required_with:faqs', 'string', 'max:2000'],
+            'faqs.*.answer_en' => ['required_with:faqs', 'string', 'max:2000'],
+            'faqs.*.published' => ['required_with:faqs', 'boolean'],
         ];
     }
 }

@@ -32,7 +32,10 @@ class Service extends Model implements HasMedia
             'published' => 'boolean',
         ];
     }
-
+    public function faqs()
+    {
+        return $this->morphMany(Faq::class, 'faqable');
+    }
     public function scopePublished($query, $value = true)
     {
         return $query->where('published', $value);

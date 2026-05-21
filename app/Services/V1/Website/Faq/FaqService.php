@@ -12,11 +12,14 @@ class FaqService
         $locale = app()->getLocale();
 
         return Faq::select(
-            'id',
-            "question_$locale as question",
-            "answer_$locale as answer"
+            [
+                'id',
+                "question_$locale as question",
+                "answer_$locale as answer"
+            ]
         )
             ->published(true)
+            ->global()
             ->latest()
             ->paginate($per_page);
     }

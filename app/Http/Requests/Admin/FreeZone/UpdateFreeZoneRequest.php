@@ -33,6 +33,12 @@ class UpdateFreeZoneRequest extends FormRequest
             'content_ar' => ['sometimes', 'string'],
             'content_en' => ['sometimes', 'string'],
             'image' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:10240'],
+            'faqs' => ['nullable', 'array'],
+            'faqs.*.question_ar' => ['required_with:faqs', 'string', 'max:255'],
+            'faqs.*.question_en' => ['required_with:faqs', 'string', 'max:255'],
+            'faqs.*.answer_ar' => ['required_with:faqs', 'string', 'max:2000'],
+            'faqs.*.answer_en' => ['required_with:faqs', 'string', 'max:2000'],
+            'faqs.*.published' => ['required_with:faqs', 'boolean'],
         ];
     }
 }
