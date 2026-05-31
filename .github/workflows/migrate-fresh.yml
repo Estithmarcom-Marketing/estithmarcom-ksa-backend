@@ -1,4 +1,4 @@
-name: 🗄️ Migrate Fresh & Seed (Test Server)
+name: Migrate Fresh & Seed (Test Server)
 
 on:
   workflow_dispatch:
