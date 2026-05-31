@@ -1,0 +1,31 @@
+name: 🗄️ Migrate Fresh & Seed (Test Server)
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type "yes" to confirm - THIS WILL DELETE ALL DATA!'
+        required: true
+        default: 'no'
+
+jobs:
+  migrate-fresh:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check confirmation
+        if: ${{ github.event.inputs.confirm != 'yes' }}
+        run: |
+          echo "You must type 'yes' to confirm. Aborting."
+          exit 1
+
+      - name: Run migrate:fresh --seed on Test Server
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            echo "Running migrate:fresh --seed..."
+            docker exec ksa-laravel-php php artisan migrate:fresh --seed --force
+            echo "Done!"
