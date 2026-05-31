@@ -39,12 +39,7 @@ class ClientService
 
     public function update(Client $client, array $data)
     {
-        $client->update([
-            'link' => $data['link'] ?? $client->link,
-            'published' => $data['published'] ?? $client->published,
-            'alt_ar' => $data['alt_ar'] ?? $client->alt_ar,
-            'alt_en' => $data['alt_en'] ?? $client->alt_en,
-        ]);
+        $client->update($data);
         if (! empty($data['image'])) {
             $client->clearMediaCollection('client');
             $client->addMedia($data['image'])->toMediaCollection('client');

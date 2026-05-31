@@ -12,10 +12,10 @@ class RequestServiceManagementService
         $per_page = $data['per_page'] ?? 10;
 
         return RequestService::query()
-            ->when($data['country_id'] ?? null, fn($q, $v) => $q->filterByCountry($v))
-            ->when($data['service_id'] ?? null, fn($q, $v) => $q->filterByService($v))
-            ->when($data['status'] ?? null, fn($q, $v) => $q->filterByStatus($v))
-            ->when($data['search'] ?? null, fn($q, $v) => $q->search($v))
+            ->when(filled($data['country_id'] ?? null), fn($q) => $q->filterByCountry($data['country_id']))
+            ->when(filled($data['service_id'] ?? null), fn($q) => $q->filterByService($data['service_id']))
+            ->when(filled($data['status'] ?? null), fn($q) => $q->filterByStatus($data['status']))
+            ->when(filled($data['search'] ?? null), fn($q) => $q->search($data['search']))
             ->with([
                 'service:id,title_ar',
                 'country:id,name_ar'

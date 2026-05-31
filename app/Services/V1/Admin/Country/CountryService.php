@@ -11,8 +11,8 @@ class CountryService
         $per_page = $data['per_page'] ?? 10;
 
         return Country::query()
-            ->when($data['active'] ?? null, fn($q, $v) => $q->active($v))
-            ->when($data['search'] ?? null, fn($q, $v) => $q->search($v))
+            ->when(array_key_exists('active', $data), fn($q) => $q->active($data['active']))
+            ->when($data['search'] ?? null, fn($q) => $q->search($data['search']))
             ->with('media')
             ->select('id', 'name_ar', 'name_en', 'active', 'created_at')
             ->latest()
@@ -20,7 +20,7 @@ class CountryService
     }
     public function listWithoutPagination()
     {
-        return Country::select('id', 'name_ar', 'name_en', 'active')
+        return Country::select(['id', 'name_ar','active'])
             ->latest()
             ->get();
     }

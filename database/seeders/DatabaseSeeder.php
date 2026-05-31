@@ -30,7 +30,8 @@ class DatabaseSeeder extends Seeder
             ClientSeeder::class,
             ServiceSeeder::class,
             RequestServiceSeeder::class,
-            FreeZoneSeeder::class
+            FreeZoneSeeder::class,
+            ResidencySeeder::class
         ]);
     }
 }

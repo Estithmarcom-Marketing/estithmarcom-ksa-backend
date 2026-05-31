@@ -11,8 +11,8 @@ class FaqService
         $per_page = $data['per_page'] ?? 10;
 
         return Faq::query()
-            ->when($data['published'] ?? null, fn($q, $v) => $q->published($v))
-            ->when($data['search'] ?? null, fn($q, $v) => $q->search($v))
+            ->when(array_key_exists('published', $data), fn($q) => $q->published($data['published']))
+            ->when(filled($data['search'] ?? null), fn($q) => $q->search($data['search']))
             ->select('id', 'question_ar', 'question_en', 'published', 'created_at')
             ->latest()
             ->paginate($per_page);
@@ -20,24 +20,12 @@ class FaqService
 
     public function store(array $data)
     {
-        return Faq::create([
-            'question_ar' => $data['question_ar'],
-            'question_en' => $data['question_en'],
-            'answer_ar' => $data['answer_ar'],
-            'answer_en' => $data['answer_en'],
-            'published' => $data['published'],
-        ]);
+        return Faq::create($data);
     }
 
     public function update(Faq $faq, array $data)
     {
-        $faq->update([
-            'question_ar' => $data['question_ar'] ?? $faq->question_ar,
-            'question_en' => $data['question_en'] ?? $faq->question_en,
-            'answer_ar' => $data['answer_ar'] ?? $faq->answer_ar,
-            'answer_en' => $data['answer_en'] ?? $faq->answer_en,
-            'published' => $data['published'] ?? $faq->published,
-        ]);
+        $faq->update($data);
 
         return $faq->refresh();
     }

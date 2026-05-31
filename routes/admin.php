@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\V1\Admin\DashboardStats\DashboardStatsController;
 use App\Http\Controllers\Api\V1\Admin\Faq\FaqController;
 use App\Http\Controllers\Api\V1\Admin\FreeZone\FreeZoneController;
 use App\Http\Controllers\Api\V1\Admin\RequestService\RequestServiceController;
+use App\Http\Controllers\Api\V1\Admin\Residency\ResidencyController;
 use App\Http\Controllers\Api\V1\Admin\Service\ServiceController;
 use App\Http\Controllers\Api\V1\Admin\Setting\SettingController;
 use App\Http\Controllers\Api\V1\Admin\Subscription\SubscriptionController;
@@ -91,6 +92,13 @@ Route::prefix('v1/admin')->middleware(['auth:sanctum', 'locale', 'json'])->group
         Route::post('', [FreeZoneController::class, 'store']);
         Route::patch('{freeZone}', [FreeZoneController::class, 'update']);
         Route::delete('{freeZone}', [FreeZoneController::class, 'delete']);
+    });
+    Route::prefix('residencies')->group(function () {
+        Route::get('', [ResidencyController::class, 'index']);
+        Route::get('{residency}', [ResidencyController::class, 'show']);
+        Route::post('', [ResidencyController::class, 'store']);
+        Route::patch('{residency}', [ResidencyController::class, 'update']);
+        Route::delete('{residency}', [ResidencyController::class, 'delete']);
     });
     Route::get('dashboard-stats', DashboardStatsController::class);
 });

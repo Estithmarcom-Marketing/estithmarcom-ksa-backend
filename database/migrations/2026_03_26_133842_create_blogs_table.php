@@ -24,10 +24,10 @@ return new class extends Migration
             $table->text('content_ar');
             $table->text('content_en');
             $table->boolean('published')->default(false);
-            $table->string('meta_title_ar');
-            $table->string('meta_title_en');
-            $table->string('meta_description_ar');
-            $table->string('meta_description_en');
+            $table->string('meta_title_ar')->nullable()->default(null);
+            $table->string('meta_title_en')->nullable()->default(null);
+            $table->string('meta_description_ar')->nullable()->default(null);
+            $table->string('meta_description_en')->nullable()->default(null);
             $table->timestamps();
         });
     }

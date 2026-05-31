@@ -11,17 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('services', function (Blueprint $table) {
+        Schema::create('residencies', function (Blueprint $table) {
             $table->id();
             $table->string('title_ar');
             $table->string('title_en');
+            $table->text('description_ar');
+            $table->text('description_en');
             $table->string('slug_ar')->unique();
             $table->string('slug_en')->unique();
-            $table->text('short_description_en');
-            $table->text('short_description_ar');
-            $table->text('long_description_en');
-            $table->text('long_description_ar');
             $table->boolean('published')->default(false);
+            $table->foreignId('country_id')->nullable()->constrained()->nullOnDelete();
             $table->string('meta_title_ar')->nullable()->default(null);
             $table->string('meta_title_en')->nullable()->default(null);
             $table->string('meta_description_ar')->nullable()->default(null);
@@ -35,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('services');
+        Schema::dropIfExists('residencies');
     }
 };

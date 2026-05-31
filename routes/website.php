@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\V1\Website\Country\CountryController;
 use App\Http\Controllers\Api\V1\Website\Faq\FaqController;
 use App\Http\Controllers\Api\V1\Website\FreeZone\FreeZoneController;
 use App\Http\Controllers\Api\V1\Website\RequestService\RequestServiceController;
+use App\Http\Controllers\Api\V1\Website\Residency\ResidencyController;
 use App\Http\Controllers\Api\V1\Website\Service\ServiceController;
 use App\Http\Controllers\Api\V1\Website\Setting\SettingController;
 use App\Http\Controllers\Api\V1\Website\Subscription\SubscriptionController;
@@ -32,6 +33,10 @@ Route::prefix('v1/website')->middleware(['locale', 'json'])->group(function () {
     Route::prefix('free-zones')->group(function () {
         Route::get('', [FreeZoneController::class, 'index']);
         Route::get('{identifier}', [FreeZoneController::class, 'show']);
+    });
+    Route::prefix('residencies')->group(function () {
+        Route::get('', [ResidencyController::class, 'index']);
+        Route::get('{residency}', [ResidencyController::class, 'show']);
     });
     Route::get('faqs', FaqController::class);
     Route::post('contact-us', ContactUsController::class);
