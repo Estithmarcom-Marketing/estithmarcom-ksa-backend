@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\V1\Admin\Country\CountryController;
 use App\Http\Controllers\Api\V1\Admin\DashboardStats\DashboardStatsController;
 use App\Http\Controllers\Api\V1\Admin\Faq\FaqController;
 use App\Http\Controllers\Api\V1\Admin\FreeZone\FreeZoneController;
+use App\Http\Controllers\Api\V1\Admin\Highlight\HighlightController;
 use App\Http\Controllers\Api\V1\Admin\RequestResidency\RequestResidencyController;
 use App\Http\Controllers\Api\V1\Admin\RequestService\RequestServiceController;
 use App\Http\Controllers\Api\V1\Admin\Residency\ResidencyController;
@@ -106,6 +107,11 @@ Route::prefix('v1/admin')->middleware(['auth:sanctum', 'locale', 'json'])->group
         Route::get('{requestResidency}', [RequestResidencyController::class, 'show']);
         Route::patch('{requestResidency}', [RequestResidencyController::class, 'update']);
         Route::delete('{requestResidency}', [RequestResidencyController::class, 'delete']);
+    });
+    Route::prefix('highlights')->group(function () {
+        Route::get('', [HighlightController::class, 'index']);
+        Route::get('{highlight}', [HighlightController::class, 'show']);
+        Route::patch('{highlight}', [HighlightController::class, 'update']);
     });
     Route::get('dashboard-stats', DashboardStatsController::class);
 });

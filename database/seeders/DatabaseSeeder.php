@@ -31,7 +31,8 @@ class DatabaseSeeder extends Seeder
             ServiceSeeder::class,
             RequestServiceSeeder::class,
             FreeZoneSeeder::class,
-            ResidencySeeder::class
+            ResidencySeeder::class,
+            HighlightSeeder::class,
         ]);
     }
 }
