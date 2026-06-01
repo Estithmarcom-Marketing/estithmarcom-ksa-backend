@@ -6,9 +6,8 @@ use App\Models\FreeZone;
 
 class FreeZoneService
 {
-    public function list(array $data)
+    public function list()
     {
-        $per_page = $data['per_page'] ?? 10;
         $locale = app()->getLocale();
         return FreeZone::select(
             [
@@ -20,7 +19,7 @@ class FreeZoneService
         )->with('media')
             ->active(true)
             ->latest()
-            ->paginate($per_page);
+            ->get();
     }
     public function show($identifier)
     {

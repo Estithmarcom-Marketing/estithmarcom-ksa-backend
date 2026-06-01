@@ -20,18 +20,16 @@ class ClientController extends Controller
     /**
      * @unauthenticated
      */
-    public function __invoke(ListClientsRequest $request)
+    public function __invoke()
     {
         try {
-            $clients = $this->service->list($request->validated());
-            $clients = ClientResource::collection($clients)->response()->getData(true);
+            $clients = $this->service->list();
+            $clients = ClientResource::collection($clients);
             return ApiResponse::success([
-                'clients' => $clients['data'],
-                'meta' => $clients['meta'],
-                'links' => $clients['links']
+                'clients' => $clients
             ], __('client.listed_successfully'), Response::HTTP_OK);
         } catch (\Throwable $th) {
-            Log::error('Failed to list clients', ['error' => $th->getMessage(), 'request' => $request->validated(), 'method' => __METHOD__]);
+            Log::error('Failed to list clients', ['error' => $th->getMessage(), 'method' => __METHOD__]);
             return ApiResponse::error(__('client.listed_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

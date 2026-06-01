@@ -17,25 +17,23 @@ class FreeZoneController extends Controller
 {
     use ApiResponse;
     public function __construct(public FreeZoneService $service) {}
-      /**
+    /**
      * @unauthenticated
      */
-    public function index(ListFreeZonesRequest $request)
+    public function index()
     {
         try {
-            $zones = $this->service->list($request->validated());
-            $zones = FreeZoneResource::collection($zones)->response()->getData(true);
+            $zones = $this->service->list();
+            $zones = FreeZoneResource::collection($zones);
             return ApiResponse::success([
-                'zones' => $zones['data'],
-                'meta' => $zones['meta'],
-                'links' => $zones['links'],
+                'zones' => $zones
             ], __('free_zone.listed_successfully'), Response::HTTP_OK);
         } catch (\Throwable $th) {
-            Log::error("Failed to list free zones", ['error' => $th->getMessage(), 'request' => $request->validated(), 'method' => __METHOD__]);
+            Log::error("Failed to list free zones", ['error' => $th->getMessage(), 'method' => __METHOD__]);
             return ApiResponse::error(__('free_zone.listed_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
-      /**
+    /**
      * @unauthenticated
      */
     public function show(string $identifier)
