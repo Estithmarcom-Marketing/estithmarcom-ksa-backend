@@ -19,6 +19,7 @@ class ResidencyService
             ->select([
                 'id',
                 "title_$locale as title",
+                "slug_$locale as slug",
             ])
             ->latest()
             ->paginate($per_page);

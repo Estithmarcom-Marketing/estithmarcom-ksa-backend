@@ -55,6 +55,20 @@ class UpdateServiceRequest extends FormRequest
             'faqs.*.answer_ar' => ['required_with:faqs', 'string', 'max:2000'],
             'faqs.*.answer_en' => ['required_with:faqs', 'string', 'max:2000'],
             'faqs.*.published' => ['required_with:faqs', 'boolean'],
+            'features' => ['nullable', 'array'],
+            'features.*.id' => [
+                'nullable',
+                'integer',
+                Rule::exists('service_features', 'id')->where(function ($query) use ($serviceId) {
+                    $query->where('service_id', $serviceId);
+                }),
+            ],
+            'features.*.title_ar' => ['sometimes', 'string', 'max:255'],
+            'features.*.title_en' => ['sometimes', 'string', 'max:255'],
+            'features.*.description_ar' => ['sometimes', 'string', 'max:2000'],
+            'features.*.description_en' => ['sometimes', 'string', 'max:2000'],
+            'features.*.published' => ['sometimes', 'boolean'],
+            'features.*.image' => ['nullable', 'image:allow_svg', 'mimes:jpg,jpeg,png,webp,svg', 'max:10240'],
         ];
     }
     protected function prepareForValidation()

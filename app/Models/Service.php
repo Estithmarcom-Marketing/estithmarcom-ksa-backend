@@ -16,6 +16,8 @@ use Spatie\MediaLibrary\InteractsWithMedia;
     'short_description_ar',
     'long_description_en',
     'long_description_ar',
+    'feature_description_ar',
+    'feature_description_en',
     'published',
     'meta_title_ar',
     'meta_title_en',
@@ -35,6 +37,10 @@ class Service extends Model implements HasMedia
     public function faqs()
     {
         return $this->morphMany(Faq::class, 'faqable');
+    }
+    public function features()
+    {
+        return $this->hasMany(ServiceFeature::class);
     }
     public function scopePublished($query, $value = true)
     {

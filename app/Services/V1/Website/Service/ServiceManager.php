@@ -32,6 +32,7 @@ class ServiceManager
                 "slug_{$locale} as slug",
                 "short_description_{$locale} as short_description",
                 "long_description_{$locale} as long_description",
+                "feature_description_{$locale} as feature_description",
                 "meta_title_{$locale} as meta_title",
                 "meta_description_{$locale} as meta_description"
             ]

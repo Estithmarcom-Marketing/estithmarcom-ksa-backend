@@ -21,6 +21,8 @@ return new class extends Migration
             $table->text('short_description_ar');
             $table->text('long_description_en');
             $table->text('long_description_ar');
+            $table->text('feature_description_ar')->nullable()->default(null);
+            $table->text('feature_description_en')->nullable()->default(null);
             $table->boolean('published')->default(false);
             $table->string('meta_title_ar')->nullable()->default(null);
             $table->string('meta_title_en')->nullable()->default(null);
