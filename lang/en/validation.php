@@ -182,6 +182,12 @@ return [
     'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
+            'phone.required' => 'Please enter the phone number',
+            'features.*.title_ar.required' => 'Please enter the feature title in Arabic',
+            'features.*.title_en.required' => 'Please enter the feature title in English',
+            'features.*.description_ar.required' => 'Please enter the feature description in Arabic',
+            'features.*.description_en.required' => 'Please enter the feature description in English',
+             'features.*.published.required' => 'Please choose the feature published state',    
         ],
     ],
 
@@ -196,6 +202,12 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'features.*.title_ar' => 'Feature Title in Arabic',
+        'features.*.title_en' => 'Feature Title in English',
+        'features.*.description_ar' => 'Feature Description in Arabic',
+        'features.*.description_en' => 'Feature Description in English',
+        'features.*.published' => 'Feature Published State',
+    ],
 
 ];

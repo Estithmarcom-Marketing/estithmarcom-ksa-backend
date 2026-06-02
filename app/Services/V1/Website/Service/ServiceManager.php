@@ -16,7 +16,7 @@ class ServiceManager
         return Service::select(['id', "title_$locale as title", "slug_$locale as slug", "short_description_$locale as short_description"])
             ->with('media')
             ->published(true)
-            ->when(filled($search), fn($q) => $q->search($search))
+            ->when(filled($search ?? null), fn($q) => $q->search($search))
             ->when(filled($country_id), fn($q) => $q->filterByCountry($country_id))
             ->latest()
             ->paginate($per_page);

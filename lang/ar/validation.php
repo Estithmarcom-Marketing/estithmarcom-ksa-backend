@@ -184,6 +184,13 @@ return [
         'attribute-name' => [
             'rule-name' => 'رسالة مخصصة',
             'phone.required' => 'من فضلك ادخل رقم الهاتف',
+            'features.*.title_ar.required' => 'من فضلك ادخل عنوان الميزة بالعربية',
+            'features.*.title_en.required' => 'من فضلك ادخل عنوان الميزة بالإنجليزية',
+            'features.*.description_ar.required' => 'من فضلك ادخل وصف الميزة بالعربية',
+            'features.*.description_en.required' => 'من فضلك ادخل وصف الميزة بالإنجليزية',
+             'features.*.published.required' => 'من فضلك اختر حالة النشر',
+             'features.*.published.in' => 'حالة النشر غير صالحة',
+             
         ],
     ],
 
@@ -206,6 +213,14 @@ return [
         'description' => 'الوصف',
         'price' => 'السعر',
         'quantity' => 'الكمية',
+
+        'features.*.title_ar' => 'عنوان الميزة بالعربية',
+        'features.*.title_en' => 'عنوان الميزة بالإنجليزية',
+
+        'features.*.description_ar' => 'وصف الميزة بالعربية',
+        'features.*.description_en' => 'وصف الميزة بالإنجليزية',
+
+        'features.*.published' => 'حالة النشر',
     ],
 
 ];

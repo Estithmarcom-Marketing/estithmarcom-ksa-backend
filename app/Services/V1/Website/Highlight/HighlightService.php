@@ -10,9 +10,12 @@ class HighlightService
     {
         $locale = app()->getLocale() ?? 'ar';
 
-        return Highlight::select(['id',
+        return Highlight::select([
+            'id',
             "label_{$locale} as label",
-            "value_{$locale} as value"])
+            "value_{$locale} as value"
+        ])
+            ->with('media')
             ->latest()
             ->limit(4)
             ->get();

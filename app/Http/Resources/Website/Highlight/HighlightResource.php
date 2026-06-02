@@ -18,6 +18,9 @@ class HighlightResource extends JsonResource
             'id' => $this->id,
             'label' => $this->label,
             'value' => (float) $this->value,
+            'image' => $this->whenLoaded('media', function () {
+                return $this->getFirstMediaUrl('highlight_image');
+            }, ''),
         ];
     }
 }

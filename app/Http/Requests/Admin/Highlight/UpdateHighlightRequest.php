@@ -27,6 +27,7 @@ class UpdateHighlightRequest extends FormRequest
             'label_ar' => ['sometimes', 'string', 'max:255'],
             'value_en' => ['sometimes', 'integer'],
             'value_ar' => ['sometimes', 'integer'],
+            'image' => ['nullable', 'image:allow_svg', 'mimes:jpg,jpeg,png,webp,svg', 'max:10240'],
         ];
     }
 }
