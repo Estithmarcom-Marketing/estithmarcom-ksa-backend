@@ -23,12 +23,10 @@ class CountryController extends Controller
     {
         try {
             $countries = $this->service->list();
-            $countries = CountryResource::collection($countries)->response()->getData(true);
+            $countries = CountryResource::collection($countries);
 
             return ApiResponse::success([
-                'countries' => $countries['data'],
-                'meta' => $countries['meta'],
-                'links' => $countries['links'],
+                'countries' => $countries
             ], __('country.listed_successfully'), Response::HTTP_OK);
         } catch (\Throwable $th) {
             Log::error('Failed to list countries', ['error' => $th->getMessage(), 'method' => __METHOD__]);
