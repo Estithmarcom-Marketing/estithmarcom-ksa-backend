@@ -27,8 +27,8 @@ class StoreCountryRequest extends FormRequest
             'name_en' => ['required', 'string', 'max:255'],
             'title_ar' => ['required', 'string', 'max:255'],
             'title_en' => ['required', 'string', 'max:255'],
-            'description_ar' => ['required', 'string'],
-            'description_en' => ['required', 'string'],
+            'description_ar' => ['required', 'string','max:255'],
+            'description_en' => ['required', 'string','max:255'],
             'image' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:10240'],
             'active' => ['required', 'boolean'],
         ];

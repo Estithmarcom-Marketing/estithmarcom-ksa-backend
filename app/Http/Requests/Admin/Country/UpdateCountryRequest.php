@@ -27,8 +27,8 @@ class UpdateCountryRequest extends FormRequest
             'name_en' => ['sometimes', 'string', 'max:255'],
             'title_ar' => ['sometimes', 'string', 'max:255'],
             'title_en' => ['sometimes', 'string', 'max:255'],
-            'description_ar' => ['sometimes', 'string'],
-            'description_en' => ['sometimes', 'string'],
+            'description_ar' => ['sometimes', 'string', 'max:255'],
+            'description_en' => ['sometimes', 'string', 'max:255'],
             'image' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:10240'],
             'active' => ['sometimes', 'boolean'],
         ];
