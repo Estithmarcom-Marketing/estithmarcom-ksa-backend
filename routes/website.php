@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\Website\Blog\BlogController;
+use App\Http\Controllers\Api\V1\Website\Category\CategoryController;
 use App\Http\Controllers\Api\V1\Website\Client\ClientController;
 use App\Http\Controllers\Api\V1\Website\ContactUs\ContactUsController;
 use App\Http\Controllers\Api\V1\Website\Country\CountryController;
@@ -46,4 +47,5 @@ Route::prefix('v1/website')->middleware(['locale', 'json'])->group(function () {
     Route::post('request-service', RequestServiceController::class);
     Route::post('subscriptions', SubscriptionController::class);
     Route::get('highlights', [HighlightController::class, 'index']);
+    Route::get('categories/unpaginated', [CategoryController::class, 'listWithoutPagination']);
 });

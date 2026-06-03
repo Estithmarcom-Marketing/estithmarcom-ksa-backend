@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Website\Blog;
 
+use App\Http\Resources\Website\Category\CategoryResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -24,6 +25,8 @@ class BlogResource extends JsonResource
             'meta_title' => $this->meta_title,
             'meta_description' => $this->meta_description,
             'image' => $this->whenLoaded('media', fn() => $this->getFirstMediaUrl('blog'), ''),
+            'category' => $this->whenLoaded('category', fn() => CategoryResource::make($this->category)),
+            'created_at' => $this->created_at,
         ];
     }
 }

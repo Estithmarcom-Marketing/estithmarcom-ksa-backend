@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\Admin\AdminManagement\AdminManagementController;
 use App\Http\Controllers\Api\V1\Admin\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Admin\Blog\BlogController;
+use App\Http\Controllers\Api\V1\Admin\Category\CategoryController;
 use App\Http\Controllers\Api\V1\Admin\Client\ClientController;
 use App\Http\Controllers\Api\V1\Admin\ContactUs\ContactUsController;
 use App\Http\Controllers\Api\V1\Admin\Country\CountryController;
@@ -112,6 +113,14 @@ Route::prefix('v1/admin')->middleware(['auth:sanctum', 'locale', 'json'])->group
         Route::get('', [HighlightController::class, 'index']);
         Route::get('{highlight}', [HighlightController::class, 'show']);
         Route::patch('{highlight}', [HighlightController::class, 'update']);
+    });
+    Route::prefix('categories')->group(function () {
+        Route::get('', [CategoryController::class, 'index']);
+        Route::get('unpaginated', [CategoryController::class, 'listWithoutPagination']);
+        Route::get('{category}', [CategoryController::class, 'show']);
+        Route::post('', [CategoryController::class, 'store']);
+        Route::patch('{category}', [CategoryController::class, 'update']);
+        Route::delete('{category}', [CategoryController::class, 'delete']);
     });
     Route::get('dashboard-stats', DashboardStatsController::class);
 });

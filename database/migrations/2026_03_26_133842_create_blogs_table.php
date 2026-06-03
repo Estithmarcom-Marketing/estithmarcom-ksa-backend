@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('meta_title_en')->nullable()->default(null);
             $table->string('meta_description_ar')->nullable()->default(null);
             $table->string('meta_description_en')->nullable()->default(null);
+            $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }

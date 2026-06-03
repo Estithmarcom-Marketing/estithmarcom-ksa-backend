@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Website\Blog;
+namespace App\Http\Requests\Admin\Category;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ListBlogsRequest extends FormRequest
+class StoreCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +23,8 @@ class ListBlogsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'page' => ['sometimes', 'integer', 'min:1'],
-            'per_page' => ['sometimes', 'integer', 'between:1,50'],
-            'search' => ['sometimes', 'string', 'max:255'],
-            'category_id' => ['sometimes', 'exists:categories,id'],
+            'name_ar' => ['required', 'string', 'max:255', 'unique:categories,name_ar'],
+            'name_en' => ['required', 'string', 'max:255', 'unique:categories,name_en'],
         ];
     }
 }

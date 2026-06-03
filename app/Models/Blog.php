@@ -23,6 +23,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
     'meta_title_en',
     'meta_description_ar',
     'meta_description_en',
+    'category_id',
 ])]
 class Blog extends Model implements HasMedia
 {
@@ -46,5 +47,13 @@ class Blog extends Model implements HasMedia
             $query->where('title_ar', 'like', $term)
                 ->orWhere('title_en', 'like', $term);
         });
+    }
+    public function scopeFilterByCategory($query, $categoryId)
+    {
+        return $query->where('category_id', $categoryId);
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

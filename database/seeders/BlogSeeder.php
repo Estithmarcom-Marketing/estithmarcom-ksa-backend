@@ -9,6 +9,7 @@ class BlogSeeder extends Seeder
 {
     public function run(): void
     {
+        $now = now();
         $blogs = [
 
             [
@@ -35,8 +36,9 @@ class BlogSeeder extends Seeder
                 'meta_description_ar' => 'دليل شامل حول فرص الاستثمار في السوق السعودي.',
                 'meta_description_en' => 'A comprehensive guide to investment opportunities in Saudi Arabia.',
 
-                'created_at' => now(),
-                'updated_at' => now(),
+                'category_id' => 1,
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
 
             [
@@ -63,8 +65,9 @@ class BlogSeeder extends Seeder
                 'meta_description_ar' => 'تعلم كيفية تأسيس مشروعك التجاري بطريقة احترافية.',
                 'meta_description_en' => 'Learn how to establish your business professionally.',
 
-                'created_at' => now(),
-                'updated_at' => now(),
+                'category_id' => 2,
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
 
             [
@@ -91,8 +94,9 @@ class BlogSeeder extends Seeder
                 'meta_description_ar' => 'أفضل طرق تطوير الأعمال وزيادة النمو المؤسسي.',
                 'meta_description_en' => 'Top methods for business development and organizational growth.',
 
-                'created_at' => now(),
-                'updated_at' => now(),
+                'category_id' => 3,
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
 
         ];

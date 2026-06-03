@@ -39,6 +39,7 @@ class StoreBlogRequest extends FormRequest
             'meta_title_en' => ['required', 'string', 'max:255'],
             'meta_description_ar' => ['required', 'string', 'max:255'],
             'meta_description_en' => ['required', 'string', 'max:255'],
+            'category_id' => ['required', 'exists:categories,id'],
         ];
     }
 }

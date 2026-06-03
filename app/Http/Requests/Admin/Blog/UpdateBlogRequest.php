@@ -56,6 +56,7 @@ class UpdateBlogRequest extends FormRequest
             'meta_title_en' => ['sometimes', 'string', 'max:255'],
             'meta_description_ar' => ['sometimes', 'string', 'max:255'],
             'meta_description_en' => ['sometimes', 'string', 'max:255'],
+            'category_id' => ['sometimes', 'exists:categories,id'],
         ];
     }
 }

@@ -12,6 +12,7 @@ class BlogService
 
         return Blog::query()
             ->when(array_key_exists('published', $data), fn($q) => $q->published($data['published']))
+            ->when(filled($data['category_id'] ?? null), fn($q) => $q->filterByCategory($data['category_id']))
             ->when(filled($data['search'] ?? null), fn($q) => $q->search($data['search']))
             ->with('media')
             ->select('id', 'title_ar', 'published', 'created_at')
@@ -21,7 +22,7 @@ class BlogService
 
     public function show(Blog $blog)
     {
-        return $blog->load('media');
+        return $blog->load(['media', 'category:id,name_ar,name_en']);
     }
 
     public function store(array $data)

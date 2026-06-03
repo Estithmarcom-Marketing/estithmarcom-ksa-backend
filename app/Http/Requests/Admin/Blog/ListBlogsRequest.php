@@ -27,6 +27,7 @@ class ListBlogsRequest extends FormRequest
             'per_page' => ['sometimes', 'integer', 'between:1,50'],
             'search' => ['sometimes', 'string', 'max:255'],
             'published' => ['sometimes', 'boolean'],
+            'category_id' => ['sometimes', 'exists:categories,id'],
         ];
     }
 }
