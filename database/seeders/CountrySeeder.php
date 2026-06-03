@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Country;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class CountrySeeder extends Seeder
 {
@@ -12,6 +13,8 @@ class CountrySeeder extends Seeder
      */
     public function run(): void
     {
+        $now = now();
+        $banner = public_path('seedersImages/Country/hero-banner.jpeg');
         $countries = [
             [
                 'name_ar' => 'مصر',
@@ -21,8 +24,9 @@ class CountrySeeder extends Seeder
                 'description_ar' => 'سوق متنوع ودعم شامل لتأسيس الأعمال وتعزيز الاستثمارات.',
                 'description_en' => 'A diverse market with comprehensive support for business establishment and investment growth.',
                 'active' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'image' => $banner,
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             [
                 'name_ar' => 'السعودية',
@@ -32,8 +36,9 @@ class CountrySeeder extends Seeder
                 'description_ar' => 'اقتصاد قوي وفرص استثمارية مدعومة برؤية طموحة.',
                 'description_en' => 'A strong economy with investment opportunities driven by a visionary future.',
                 'active' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'image' => $banner,
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             [
                 'name_ar' => 'الإمارات',
@@ -43,8 +48,9 @@ class CountrySeeder extends Seeder
                 'description_ar' => 'بيئة أعمال عالمية وبنية تحتية متطورة لدعم النمو.',
                 'description_en' => 'A global business environment with advanced infrastructure for growth.',
                 'active' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'image' => $banner,
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             [
                 'name_ar' => 'قطر',
@@ -54,8 +60,9 @@ class CountrySeeder extends Seeder
                 'description_ar' => 'اقتصاد مستقر وفرص استثمارية واعدة في مختلف القطاعات.',
                 'description_en' => 'A stable economy with promising investment opportunities across sectors.',
                 'active' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'image' => $banner,
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             [
                 'name_ar' => 'الكويت',
@@ -65,8 +72,9 @@ class CountrySeeder extends Seeder
                 'description_ar' => 'موقع استراتيجي وبيئة داعمة للأعمال والاستثمار.',
                 'description_en' => 'A strategic location with a supportive business and investment environment.',
                 'active' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'image' => $banner,
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             [
                 'name_ar' => 'المغرب',
@@ -76,8 +84,9 @@ class CountrySeeder extends Seeder
                 'description_ar' => 'بوابة إلى أفريقيا مع فرص استثمارية متنوعة.',
                 'description_en' => 'A gateway to Africa with diverse investment opportunities.',
                 'active' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'image' => $banner,
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             [
                 'name_ar' => 'الأردن',
@@ -87,11 +96,27 @@ class CountrySeeder extends Seeder
                 'description_ar' => 'بيئة مستقرة وداعمة لنمو الأعمال والاستثمارات.',
                 'description_en' => 'A stable and supportive environment for business and investment growth.',
                 'active' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'image' => $banner,
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
         ];
+        foreach ($countries as $data) {
+            $country = Country::create([
+                'name_ar' => $data['name_ar'],
+                'name_en' => $data['name_en'],
+                'title_ar' => $data['title_ar'],
+                'title_en' => $data['title_en'],
+                'description_ar' => $data['description_ar'],
+                'description_en' => $data['description_en'],
+                'active' => $data['active'],
+            ]);
 
-        DB::table('countries')->insert($countries);
+            if (File::exists($data['image'])) {
+                $country
+                    ->copyMedia($data['image'])
+                    ->toMediaCollection('country');
+            }
+        }
     }
 }
