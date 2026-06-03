@@ -53,7 +53,17 @@ class ServiceManager
                         'countries.id',
                         "name_{$locale} as name"
                     );
-                }
+                },
+                'features' => function ($q) use ($locale) {
+                    $q->select([
+                        'id',
+                        'service_id',
+                        "title_$locale as title",
+                        "description_$locale as description",
+                    ])
+                        ->published(true)
+                        ->with('media');
+                },
             ])
             ->published(true)
             ->where(function ($query) use ($identifier) {
