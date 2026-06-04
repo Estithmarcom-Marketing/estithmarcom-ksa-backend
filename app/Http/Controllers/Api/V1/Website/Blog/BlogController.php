@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\Website\Blog;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Website\Blog\ListBlogsRequest;
 use App\Http\Resources\Website\Blog\BlogResource;
+use App\Http\Resources\Website\Blog\BlogSiteMapResource;
 use App\Services\V1\Website\Blog\BlogService;
 use App\Traits\ApiResponse;
 use Dedoc\Scramble\Attributes\Group;
@@ -49,6 +50,22 @@ class BlogController extends Controller
         } catch (\Throwable $th) {
             Log::error('Failed to show blog', ['error' => $th->getMessage(), 'blog_identifier' => $identifier, 'method' => __METHOD__]);
             return ApiResponse::error(__('blog.showed_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+    /**
+     * @unauthenticated
+     */
+    public function getAllForSiteMap()
+    {
+        try {
+            $blogs = $this->service->getAllForSiteMap();
+            $blogs = BlogSiteMapResource::collection($blogs);
+            return ApiResponse::success([
+                'blogs' => $blogs
+            ], __('blog.listed_successfully'), Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            Log::error('Failed to list blog for site map', ['error' => $th->getMessage(), 'method' => __METHOD__]);
+            return ApiResponse::error(__('blog.listed_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

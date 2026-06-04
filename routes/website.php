@@ -26,10 +26,12 @@ Route::prefix('v1/website')->middleware(['locale', 'json'])->group(function () {
     Route::prefix('services')->group(function () {
         Route::get('', [ServiceController::class, 'index']);
         Route::get('unpaginated', [ServiceController::class, 'listWithoutPagination']);
+        Route::get('site-map', [ServiceController::class, 'getAllForSiteMap']);
         Route::get('{identifier}', [ServiceController::class, 'show']);
     });
     Route::prefix('blogs')->group(function () {
         Route::get('', [BlogController::class, 'index']);
+        Route::get('site-map', [BlogController::class, 'getAllForSiteMap']);
         Route::get('{identifier}', [BlogController::class, 'show']);
     });
     Route::get('clients', ClientController::class);
@@ -39,6 +41,7 @@ Route::prefix('v1/website')->middleware(['locale', 'json'])->group(function () {
     });
     Route::prefix('residencies')->group(function () {
         Route::get('', [ResidencyController::class, 'index']);
+        Route::get('site-map', [ResidencyController::class, 'getAllForSiteMap']);
         Route::get('{residency}', [ResidencyController::class, 'show']);
         Route::post('', RequestResidencyController::class);
     });

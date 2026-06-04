@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\Website\Residency;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Website\Residency\ListResidenciesRequest;
 use App\Http\Resources\Website\Residency\ResidencyResource;
+use App\Http\Resources\Website\Residency\ResidencySiteMapResource;
 use App\Services\V1\Website\Residency\ResidencyService;
 use App\Traits\ApiResponse;
 use Dedoc\Scramble\Attributes\Group;
@@ -49,6 +50,22 @@ class ResidencyController extends Controller
         } catch (\Throwable $th) {
             Log::error('Failed to show residency', ['error' => $th->getMessage(), 'identifier' => $identifier, 'method' => __METHOD__]);
             return ApiResponse::error(__('residency.showed_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+    /**
+     * @unauthenticated
+     */
+    public function getAllForSiteMap()
+    {
+        try {
+            $residencies = $this->service->getAllForSiteMap();
+            $residencies = ResidencySiteMapResource::collection($residencies);
+            return ApiResponse::success([
+                'residencies' => $residencies
+            ], __('residency.listed_successfully'), Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            Log::error('Failed to list residencies for site map', ['error' => $th->getMessage(), 'method' => __METHOD__]);
+            return ApiResponse::error(__('residency.listed_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

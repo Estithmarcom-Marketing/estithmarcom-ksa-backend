@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\Website\Service;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Website\Service\ListServicesRequest;
 use App\Http\Resources\Website\Service\ServiceResource;
+use App\Http\Resources\Website\Service\ServiceSiteMapResource;
 use App\Services\V1\Website\Service\ServiceManager;
 use App\Traits\ApiResponse;
 use Dedoc\Scramble\Attributes\Group;
@@ -64,6 +65,22 @@ class ServiceController extends Controller
             ], __('service.listed_successfully'), Response::HTTP_OK);
         } catch (\Throwable $th) {
             Log::error('Failed to list services', ['error' => $th->getMessage(), 'method' => __METHOD__]);
+            return ApiResponse::error(__('service.listed_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+    /**
+     * @unauthenticated
+     */
+    public function getAllForSiteMap()
+    {
+        try {
+            $services = $this->service->getAllForSiteMap();
+            $services = ServiceSiteMapResource::collection($services);
+            return ApiResponse::success([
+                'services' => $services,
+            ], __('service.listed_successfully'), Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            Log::error('Failed to list services for site map', ['error' => $th->getMessage(), 'method' => __METHOD__]);
             return ApiResponse::error(__('service.listed_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

@@ -81,4 +81,22 @@ class ServiceManager
             ->latest()
             ->get();
     }
+    public function getAllForSiteMap()
+    {
+        return Service::select(
+            [
+                'id',
+                'slug_ar',
+                'slug_en',
+                'meta_title_ar',
+                'meta_title_en',
+                'meta_description_ar',
+                'meta_description_en',
+                'updated_at'
+            ]
+        )
+            ->published(true)
+            ->latest()
+            ->get();
+    }
 }
