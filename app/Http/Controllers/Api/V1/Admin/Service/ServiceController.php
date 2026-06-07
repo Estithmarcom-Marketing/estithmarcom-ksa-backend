@@ -77,8 +77,7 @@ class ServiceController extends Controller
         } catch (\Throwable $th) {
             Log::error('Failed to update service', ['error' => $th->getMessage(), 'service_id' => $service->id, 'request' => $request->validated(), 'method' => __METHOD__]);
 
-            // return ApiResponse::error(__('service.updated_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
-            return ApiResponse::error($th->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+            return ApiResponse::error(__('service.updated_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
