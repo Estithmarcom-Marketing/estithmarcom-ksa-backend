@@ -133,8 +133,8 @@ class ServiceManager
             [
                 'title_ar' => $data['title_ar'],
                 'title_en' => $data['title_en'],
-                'description_ar' => $data['description_ar'],
-                'description_en' => $data['description_en'],
+                'description_ar' => $data['description_ar'] ?? null,
+                'description_en' => $data['description_en'] ?? null,
                 'published' => $data['published'],
             ]
         );
