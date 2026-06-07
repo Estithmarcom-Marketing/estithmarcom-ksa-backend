@@ -87,7 +87,7 @@ class ServiceManager
                 $this->createManyFaqs($service, $data['faqs']);
             }
 
-            if (isset($data['features'])) {
+            if (array_key_exists('features', $data)) {
                 $this->syncFeatures($service, $data['features']);
             }
 

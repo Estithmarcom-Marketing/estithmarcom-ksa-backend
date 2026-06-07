@@ -73,9 +73,31 @@ class UpdateServiceRequest extends FormRequest
     }
     protected function prepareForValidation()
     {
+        // country_ids fix
         if (is_string($this->country_ids)) {
             $this->merge([
                 'country_ids' => [$this->country_ids]
+            ]);
+        }
+
+        // features fix
+        if ($this->has('features')) {
+
+            $features = $this->input('features');
+
+            // if JSON string -> decode
+            if (is_string($features)) {
+                $decoded = json_decode($features, true);
+                $features = is_array($decoded) ? $decoded : [];
+            }
+
+            // ensure it's always array
+            if (!is_array($features)) {
+                $features = [];
+            }
+
+            $this->merge([
+                'features' => $features
             ]);
         }
     }
