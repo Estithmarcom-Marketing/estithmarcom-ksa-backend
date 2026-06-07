@@ -15,6 +15,8 @@ su -s /bin/bash www-data -c "php artisan storage:link --force"
 
 echo "[3/5] Publishing log-viewer assets..."
 su -s /bin/bash www-data -c "php artisan vendor:publish --tag=log-viewer-assets --force"
+# Assets in storage kopieren damit Nginx sie über das storage Volume lesen kann
+cp -r /var/www/html/public/vendor /var/www/html/storage/app/public/
 
 echo "[4/5] Clearing & caching config..."
 su -s /bin/bash www-data -c "php artisan optimize:clear"
