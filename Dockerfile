@@ -47,12 +47,8 @@ RUN apk add --no-cache \
         zip \
         intl \
         opcache \
-    # phpredis via PECL installieren
-    # Warum PECL? phpredis ist keine offizielle PHP Extension
-    # sondern eine Community Extension → muss separat installiert werden
     && pecl install redis \
     && docker-php-ext-enable redis \
-    # Build Tools wieder entfernen → Image kleiner machen
     && apk del autoconf g++ make
 
 # ── App files ─────────────────────────────────────────────────────────────────
@@ -61,7 +57,14 @@ WORKDIR /var/www/html
 COPY --from=composer /app /var/www/html
 
 # ── Permissions ───────────────────────────────────────────────────────────────
-RUN chown -R www-data:www-data /var/www/html \
+# Ordner erstellen falls sie nicht im Repo vorhanden sind
+RUN mkdir -p /var/www/html/storage/app/public \
+    && mkdir -p /var/www/html/storage/framework/cache \
+    && mkdir -p /var/www/html/storage/framework/sessions \
+    && mkdir -p /var/www/html/storage/framework/views \
+    && mkdir -p /var/www/html/storage/logs \
+    && mkdir -p /var/www/html/bootstrap/cache \
+    && chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage \
     && chmod -R 755 /var/www/html/bootstrap/cache
 
