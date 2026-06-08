@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\V1\Admin\DashboardStats\DashboardStatsController;
 use App\Http\Controllers\Api\V1\Admin\Faq\FaqController;
 use App\Http\Controllers\Api\V1\Admin\FreeZone\FreeZoneController;
 use App\Http\Controllers\Api\V1\Admin\Highlight\HighlightController;
+use App\Http\Controllers\Api\V1\Admin\Notification\NotificationController;
 use App\Http\Controllers\Api\V1\Admin\RequestResidency\RequestResidencyController;
 use App\Http\Controllers\Api\V1\Admin\RequestService\RequestServiceController;
 use App\Http\Controllers\Api\V1\Admin\Residency\ResidencyController;
@@ -121,6 +122,11 @@ Route::prefix('v1/admin')->middleware(['auth:sanctum', 'locale', 'json'])->group
         Route::post('', [CategoryController::class, 'store']);
         Route::patch('{category}', [CategoryController::class, 'update']);
         Route::delete('{category}', [CategoryController::class, 'delete']);
+    });
+    Route::prefix('notifications')->group(function () {
+        Route::get('', [NotificationController::class, 'index']);
+        Route::patch('/read-all', [NotificationController::class, 'markAllAsRead']);
+        Route::patch('{notification}/read', [NotificationController::class, 'markAsRead']);
     });
     Route::get('dashboard-stats', DashboardStatsController::class);
 });

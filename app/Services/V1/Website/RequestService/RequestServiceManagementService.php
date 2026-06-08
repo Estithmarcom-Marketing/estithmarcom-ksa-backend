@@ -3,6 +3,7 @@
 namespace App\Services\V1\Website\RequestService;
 
 use App\Enum\RequestServiceStatusEnum;
+use App\Events\ServiceRequested;
 use App\Models\Country;
 use App\Models\RequestService;
 use App\Models\Service;
@@ -17,7 +18,7 @@ class RequestServiceManagementService
 
         $this->validateData($data);
 
-        return RequestService::create([
+        $requestService = RequestService::create([
             'name' => $data['name'],
             'email' => $data['email'] ?? null,
             'phone' => $data['phone'],
@@ -26,6 +27,8 @@ class RequestServiceManagementService
             'additional_info' => $data['additional_info'] ?? null,
             'status' => RequestServiceStatusEnum::PENDING
         ]);
+        ServiceRequested::dispatch($requestService);
+        return $requestService;
     }
 
     private function normalizePhone($phone)

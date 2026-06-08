@@ -3,6 +3,7 @@
 namespace App\Services\V1\Website\RequestResidency;
 
 use App\Enum\RequestResidencyStatusEnum;
+use App\Events\ResidencyRequested;
 use App\Models\RequestResidency;
 
 class RequestResidencyService
@@ -14,7 +15,9 @@ class RequestResidencyService
         }
         $data['status'] = RequestResidencyStatusEnum::PENDING;
 
-        return RequestResidency::create($data);
+        $requestResidency = RequestResidency::create($data);
+        ResidencyRequested::dispatch($requestResidency);
+        return $requestResidency;
     }
 
     private function normalizePhone($phone)
