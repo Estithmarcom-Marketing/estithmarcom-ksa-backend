@@ -104,7 +104,7 @@ class DashboardStatsService
             ->get()
             ->keyBy('id');
 
-        return Service::select('id', 'title_en')
+        return Service::select('id', 'title_ar')
             ->get()
             ->map(function ($service) use ($current, $previous) {
 
@@ -112,7 +112,7 @@ class DashboardStatsService
                 $previousCount = $previous[$service->id]->total ?? 0;
 
                 return [
-                    'service' => $service->title_en,
+                    'service' => $service->title_ar,
                     ...$this->formatStat($currentCount, $previousCount),
                 ];
             })
