@@ -70,4 +70,16 @@ class RequestServiceController extends Controller
             return ApiResponse::error(__('request_service.deleted_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+    public function getPendingRequestsCount()
+    {
+        try {
+            $count = $this->service->getPendingRequestsCount();
+            return ApiResponse::success([
+                'count' => $count,
+            ], __('request_service.get_pending_request_count_successfully'), Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            Log::error('Failed to get pending request count', ['error' => $th->getMessage(), 'method' => __METHOD__]);
+            return ApiResponse::error(__('request_service.get_pending_request_count_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }

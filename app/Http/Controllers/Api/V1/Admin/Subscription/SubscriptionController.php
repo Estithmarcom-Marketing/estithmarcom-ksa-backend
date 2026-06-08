@@ -49,4 +49,14 @@ class SubscriptionController extends Controller
             return ApiResponse::error(__('subscription.deleted_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+    public function getSubscriptionsCount()
+    {
+        try {
+            $count = $this->service->getSubscriptionsCount();
+            return ApiResponse::success(['count' => $count], __('subscription.counted_successfully'), Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            Log::error('Failed to count subscriptions', ['error' => $th->getMessage(), 'method' => __METHOD__]);
+            return ApiResponse::error(__('subscription.counted_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }

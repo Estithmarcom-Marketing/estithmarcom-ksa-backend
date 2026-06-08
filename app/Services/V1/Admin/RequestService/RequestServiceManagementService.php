@@ -39,4 +39,8 @@ class RequestServiceManagementService
     {
         return $requestService->delete();
     }
+    public function getPendingRequestsCount()
+    {
+        return RequestService::where('status', RequestServiceStatusEnum::PENDING)->count();
+    }
 }

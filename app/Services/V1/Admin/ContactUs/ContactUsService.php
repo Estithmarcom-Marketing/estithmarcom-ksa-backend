@@ -35,4 +35,8 @@ class ContactUsService
     {
         return $contactUs->delete();
     }
+    public function getUnContactedCount()
+    {
+        return ContactUs::where('contacted', false)->count();
+    }
 }

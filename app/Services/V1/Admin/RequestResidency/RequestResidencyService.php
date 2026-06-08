@@ -37,4 +37,8 @@ class RequestResidencyService
     {
         return $requestResidency->delete();
     }
+    public function getPendingRequestsCount()
+    {
+        return RequestResidency::where('status', RequestResidencyStatusEnum::PENDING)->count();
+    }
 }

@@ -16,4 +16,7 @@ return [
     'stored_failed' => 'فشل في ارسال طلب الخدمة',
 
     'service_not_available_in_country' => 'الخدمة غير متاحة في هذه الدولة.',
+
+    'get_pending_request_count_successfully' => 'تم عرض عدد الطلبات المعلقة بنجاح',
+    'get_pending_request_count_failed' => 'فشل في عرض عدد الطلبات المعلقة',
 ];

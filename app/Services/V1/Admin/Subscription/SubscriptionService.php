@@ -20,4 +20,8 @@ class SubscriptionService
     {
         return $subscription->delete();
     }
+    public function getSubscriptionsCount()
+    {
+        return Subscription::count();
+    }
 }

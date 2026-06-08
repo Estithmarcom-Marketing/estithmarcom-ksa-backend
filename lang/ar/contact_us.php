@@ -15,4 +15,7 @@ return [
 
     'deleted_successfully' => 'تم حذف الاستفسار بنجاح',
     'deleted_failed' => 'فشل حذف الاستفسار',
+
+    'get_un_contacted_count_successfully' => 'تم عرض عدد الاستفسارات المعلقة بنجاح',
+    'get_un_contacted_count_failed' => 'فشل عرض عدد الاستفسارات المعلقة',
 ];

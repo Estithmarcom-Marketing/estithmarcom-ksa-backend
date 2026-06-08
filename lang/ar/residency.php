@@ -16,4 +16,6 @@ return [
 
     'showed_successfully' => 'تم عرض الإقامة بنجاح',
     'showed_failed' => 'فشل عرض الإقامة',
+
+    
 ];

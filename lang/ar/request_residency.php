@@ -15,4 +15,7 @@ return [
 
     'showed_successfully' => 'تم عرض طلب الإقامة بنجاح.',
     'showed_failed' => 'فشل في استرجاع طلب الإقامة.',
+
+    'pending_requests_counted_successfully' => 'تم عرض عدد الإقامات المعلقة بنجاح',
+    'pending_requests_counted_failed' => 'فشل عرض عدد الإقامات المعلقة',
 ];

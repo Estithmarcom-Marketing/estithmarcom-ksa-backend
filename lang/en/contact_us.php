@@ -14,4 +14,7 @@ return [
 
     'deleted_successfully' => 'Contact us deleted successfully',
     'deleted_failed' => 'Failed to delete contact us',
+
+    'get_un_contacted_count_successfully' => 'Un contacted count retrieved successfully',
+    'get_un_contacted_count_failed' => 'Failed to get un contacted count',
 ];

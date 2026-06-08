@@ -12,6 +12,7 @@ use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 use Dedoc\Scramble\Attributes\Group;
+
 #[Group('Admin Contact Us')]
 class ContactUsController extends Controller
 {
@@ -78,6 +79,20 @@ class ContactUsController extends Controller
             Log::error('Failed to update contact us', ['error' => $e->getMessage(), 'method' => __METHOD__]);
 
             return ApiResponse::error(__('contact_us.updated_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+    public function getUnContactedCount()
+    {
+        try {
+            $count = $this->service->getUnContactedCount();
+
+            return ApiResponse::success([
+                'count' => $count,
+            ], __('contact_us.get_un_contacted_count_successfully'));
+        } catch (\Exception $e) {
+            Log::error('Failed to get un contacted count', ['error' => $e->getMessage(), 'method' => __METHOD__]);
+
+            return ApiResponse::error(__('contact_us.get_un_contacted_count_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

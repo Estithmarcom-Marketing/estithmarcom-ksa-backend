@@ -16,4 +16,5 @@ return [
 
     'showed_successfully' => 'Residency showed successfully',
     'showed_failed' => 'Failed to show residency',
+
 ];

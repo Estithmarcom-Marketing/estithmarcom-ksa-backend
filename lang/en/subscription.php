@@ -11,4 +11,7 @@ return [
     'subscribed_failed' => 'subscribed failed',
 
     'email_exists' => 'Email already subscribed',
+
+    'counted_successfully' => 'Subscribers counted successfully',
+    'counted_failed' => 'Subscribers counted failed',
 ];

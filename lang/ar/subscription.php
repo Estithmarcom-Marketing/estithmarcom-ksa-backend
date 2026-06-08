@@ -11,4 +11,7 @@ return [
     'subscribed_failed' => 'فشل في الاشتراك ',
 
     'email_exists' => 'البريد الالكتروني مشترك بالفعل',
+
+    'counted_successfully' => 'تم عرض عدد المشتركين بنجاح',
+    'counted_failed' => 'فشل في عرض عدد المشتركين',
 ];

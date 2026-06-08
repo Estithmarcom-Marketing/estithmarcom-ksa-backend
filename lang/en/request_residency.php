@@ -14,4 +14,8 @@ return [
 
     'showed_successfully' => 'The residency request showed successfully.',
     'showed_failed' => 'Failed to retrieve residency request.',
+
+
+    'pending_requests_counted_successfully' => 'Pending requests counted successfully',
+    'pending_requests_counted_failed' => 'Failed to count pending requests',
 ];

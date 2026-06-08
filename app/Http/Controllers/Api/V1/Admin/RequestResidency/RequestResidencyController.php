@@ -61,4 +61,14 @@ class RequestResidencyController extends Controller
             return ApiResponse::error(__('request_residency.deleted_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+    public function getPendingRequestsCount()
+    {
+        try {
+            $count = $this->service->getPendingRequestsCount();
+            return ApiResponse::success(['count' => $count], __('request_residency.pending_requests_counted_successfully'));
+        } catch (\Throwable $th) {
+            Log::error('Failed to count pending requests', ['error' => $th->getMessage(), 'method' => __METHOD__]);
+            return ApiResponse::error(__('request_residency.pending_requests_counted_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }

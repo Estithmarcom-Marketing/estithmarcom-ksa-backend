@@ -55,6 +55,7 @@ Route::prefix('v1/admin')->middleware(['auth:sanctum', 'locale', 'json'])->group
     });
     Route::prefix('contact-us')->group(function () {
         Route::get('', [ContactUsController::class, 'index']);
+        Route::get('un-contacted/count', [ContactUsController::class, 'getUnContactedCount']);
         Route::get('{contact_us}', [ContactUsController::class, 'show']);
         Route::patch('{contact_us}', [ContactUsController::class, 'update']);
         Route::delete('{contact_us}', [ContactUsController::class, 'destroy']);
@@ -75,6 +76,7 @@ Route::prefix('v1/admin')->middleware(['auth:sanctum', 'locale', 'json'])->group
     });
     Route::prefix('subscriptions')->group(function () {
         Route::get('', [SubscriptionController::class, 'index']);
+        Route::get('count', [SubscriptionController::class, 'getSubscriptionsCount']);
         Route::delete('{subscription}', [SubscriptionController::class, 'delete']);
     });
     Route::prefix('services')->group(function () {
@@ -86,6 +88,7 @@ Route::prefix('v1/admin')->middleware(['auth:sanctum', 'locale', 'json'])->group
     });
     Route::prefix('request-services')->group(function () {
         Route::get('', [RequestServiceController::class, 'index']);
+        Route::get('pending/count', [RequestServiceController::class, 'getPendingRequestsCount']);
         Route::get('{requestService}', [RequestServiceController::class, 'show']);
         Route::patch('{requestService}', [RequestServiceController::class, 'update']);
         Route::delete('{requestService}', [RequestServiceController::class, 'delete']);
@@ -106,6 +109,7 @@ Route::prefix('v1/admin')->middleware(['auth:sanctum', 'locale', 'json'])->group
     });
     Route::prefix('request-residencies')->group(function () {
         Route::get('', [RequestResidencyController::class, 'index']);
+        Route::get('pending/count', [RequestResidencyController::class, 'getPendingRequestsCount']);
         Route::get('{requestResidency}', [RequestResidencyController::class, 'show']);
         Route::patch('{requestResidency}', [RequestResidencyController::class, 'update']);
         Route::delete('{requestResidency}', [RequestResidencyController::class, 'delete']);
