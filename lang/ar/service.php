@@ -11,4 +11,6 @@ return [
     'updated_failed' => 'فشل تحديث الخدمة.',
     'deleted_successfully' => 'تم حذف الخدمة بنجاح.',
     'deleted_failed' => 'فشل حذف الخدمة.',
+
+    'cannot_delete_service_with_requests' => 'لا يمكن حذف الخدمة لوجود طلبات.',
 ];

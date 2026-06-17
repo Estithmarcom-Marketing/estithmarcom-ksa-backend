@@ -22,7 +22,7 @@ class SubscriptionController extends Controller
             return ApiResponse::success([], __('subscription.subscribed_successfully'), Response::HTTP_CREATED);
         } catch (\Throwable $th) {
             Log::error('Failed to subscribe', ['error' => $th->getMessage(), 'request' => $request->validated(), 'method' => __METHOD__]);
-            return ApiResponse::error([], __('subscription.subscribed_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
+            return ApiResponse::error(__('subscription.subscribed_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

@@ -99,12 +99,14 @@ class ServiceManager
 
     public function destroy(Service $service): void
     {
+        if ($service->requests()->exists()) {
+            throw new \LogicException(__('service.cannot_delete_service_with_requests'));
+        }
         DB::transaction(function () use ($service) {
             $service->features()
                 ->get()
                 ->each(fn($feature) => $this->deleteFeature($feature));
 
-            $service->clearMediaCollection('service');
             $service->faqs()->delete();
             $service->delete();
         });
