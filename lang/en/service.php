@@ -11,4 +11,6 @@ return [
     'updated_failed' => 'Failed to update service.',
     'deleted_successfully' => 'Service deleted successfully.',
     'deleted_failed' => 'Failed to delete service.',
+
+    'cannot_delete_service_with_requests' => 'This service has requests and cannot be deleted.',
 ];

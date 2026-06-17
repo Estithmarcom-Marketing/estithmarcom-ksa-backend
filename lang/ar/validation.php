@@ -188,9 +188,9 @@ return [
             'features.*.title_en.required' => 'من فضلك ادخل عنوان الميزة بالإنجليزية',
             'features.*.description_ar.required' => 'من فضلك ادخل وصف الميزة بالعربية',
             'features.*.description_en.required' => 'من فضلك ادخل وصف الميزة بالإنجليزية',
-             'features.*.published.required' => 'من فضلك اختر حالة النشر',
-             'features.*.published.in' => 'حالة النشر غير صالحة',
-             
+            'features.*.published.required' => 'من فضلك اختر حالة النشر',
+            'features.*.published.in' => 'حالة النشر غير صالحة',
+
         ],
     ],
 
@@ -221,6 +221,9 @@ return [
         'features.*.description_en' => 'وصف الميزة بالإنجليزية',
 
         'features.*.published' => 'حالة النشر',
+        'features.*.image' => 'صورة الميزة',
+        'published' => 'حالة النشر',
+        'country_ids.*' => 'الدول',
     ],
 
 ];

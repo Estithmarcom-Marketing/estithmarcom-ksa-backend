@@ -87,8 +87,12 @@ class ServiceController extends Controller
             $this->service->destroy($service);
 
             return ApiResponse::deleted();
-        } catch (\Exception $e) {
+        } catch (\LogicException $e) {
             Log::error('Failed to delete service', ['error' => $e->getMessage(), 'service_id' => $service->id, 'method' => __METHOD__]);
+
+            return ApiResponse::error($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        } catch (\Throwable $th) {
+            Log::error('Failed to delete service', ['error' => $th->getMessage(), 'service_id' => $service->id, 'method' => __METHOD__]);
 
             return ApiResponse::error(__('service.deleted_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
