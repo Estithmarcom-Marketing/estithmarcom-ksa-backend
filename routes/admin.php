@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\V1\Admin\RequestService\RequestServiceController;
 use App\Http\Controllers\Api\V1\Admin\Residency\ResidencyController;
 use App\Http\Controllers\Api\V1\Admin\Service\ServiceController;
 use App\Http\Controllers\Api\V1\Admin\Setting\SettingController;
+use App\Http\Controllers\Api\V1\Admin\StaticPage\StaticPageController;
 use App\Http\Controllers\Api\V1\Admin\Subscription\SubscriptionController;
 use Illuminate\Support\Facades\Route;
 
@@ -131,6 +132,13 @@ Route::prefix('v1/admin')->middleware(['auth:sanctum', 'locale', 'json'])->group
         Route::get('', [NotificationController::class, 'index']);
         Route::patch('/read-all', [NotificationController::class, 'markAllAsRead']);
         Route::patch('{notification}/read', [NotificationController::class, 'markAsRead']);
+    });
+    Route::prefix('static-pages')->group(function () {
+        Route::get('', [StaticPageController::class, 'index']);
+        Route::post('', [StaticPageController::class, 'store']);
+        Route::get('{staticPage}', [StaticPageController::class, 'show']);
+        Route::patch('{staticPage}', [StaticPageController::class, 'update']);
+        Route::delete('{staticPage}', [StaticPageController::class, 'delete']);
     });
     Route::get('dashboard-stats', DashboardStatsController::class);
 });

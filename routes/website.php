@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\V1\Website\RequestService\RequestServiceController;
 use App\Http\Controllers\Api\V1\Website\Residency\ResidencyController;
 use App\Http\Controllers\Api\V1\Website\Service\ServiceController;
 use App\Http\Controllers\Api\V1\Website\Setting\SettingController;
+use App\Http\Controllers\Api\V1\Website\StaticPage\StaticPageController;
 use App\Http\Controllers\Api\V1\Website\Subscription\SubscriptionController;
 use Illuminate\Support\Facades\Route;
 
@@ -51,4 +52,8 @@ Route::prefix('v1/website')->middleware(['locale', 'json'])->group(function () {
     Route::post('subscriptions', SubscriptionController::class);
     Route::get('highlights', [HighlightController::class, 'index']);
     Route::get('categories/unpaginated', [CategoryController::class, 'listWithoutPagination']);
+    Route::prefix('static-pages')->group(function () {
+        Route::get('', [StaticPageController::class, 'index']);
+        Route::get('{identifier}', [StaticPageController::class, 'show']);
+    });
 });

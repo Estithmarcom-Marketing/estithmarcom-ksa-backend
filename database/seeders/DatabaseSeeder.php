@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
             FreeZoneSeeder::class,
             ResidencySeeder::class,
             HighlightSeeder::class,
+            StaticPageSeeder::class
         ]);
     }
 }
