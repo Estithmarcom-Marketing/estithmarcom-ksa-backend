@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\V1\Admin\DashboardStats\DashboardStatsController;
 use App\Http\Controllers\Api\V1\Admin\Faq\FaqController;
 use App\Http\Controllers\Api\V1\Admin\FreeZone\FreeZoneController;
 use App\Http\Controllers\Api\V1\Admin\Highlight\HighlightController;
+use App\Http\Controllers\Api\V1\Admin\Message\MessageController;
 use App\Http\Controllers\Api\V1\Admin\Notification\NotificationController;
 use App\Http\Controllers\Api\V1\Admin\RequestResidency\RequestResidencyController;
 use App\Http\Controllers\Api\V1\Admin\RequestService\RequestServiceController;
@@ -139,6 +140,12 @@ Route::prefix('v1/admin')->middleware(['auth:sanctum', 'locale', 'json'])->group
         Route::get('{staticPage}', [StaticPageController::class, 'show']);
         Route::patch('{staticPage}', [StaticPageController::class, 'update']);
         Route::delete('{staticPage}', [StaticPageController::class, 'delete']);
+    });
+    Route::prefix('messages')->group(function () {
+        Route::get('', [MessageController::class, 'index']);
+        Route::get('{message}', [MessageController::class, 'show']);
+        Route::patch('{message}', [MessageController::class, 'update']);
+        Route::delete('{message}', [MessageController::class, 'delete']);
     });
     Route::get('dashboard-stats', DashboardStatsController::class);
 });
