@@ -19,6 +19,7 @@ class CountryResource extends JsonResource
             'name' => $this->name,
             'title' => $this->title,
             'description' => $this->description,
+            'residencies_count' => $this->whenCounted('residencies', $this->residencies_count, null),
             'image' => $this->whenLoaded('media', fn() => $this->getFirstMediaUrl('country'), ''),
         ];
     }

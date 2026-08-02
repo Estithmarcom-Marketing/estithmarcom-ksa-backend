@@ -18,6 +18,7 @@ class CountryService
     {
         $locale = app()->getLocale();
         return Country::select(['id', "name_$locale as name"])
+            ->withCount('residencies')
             ->active(true)
             ->get();
     }
