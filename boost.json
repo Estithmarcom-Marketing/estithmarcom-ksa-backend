@@ -1,0 +1,23 @@
+{
+    "agents": [
+        "junie",
+        "opencode",
+        "copilot",
+        "claude_code"
+    ],
+    "cloud": false,
+    "guidelines": true,
+    "mcp": true,
+    "nightwatch": false,
+    "packages": [
+        "spatie/laravel-medialibrary"
+    ],
+    "sail": false,
+    "skills": [
+        "infer-conventions",
+        "laravel-best-practices",
+        "pest-testing",
+        "tailwindcss-development",
+        "medialibrary-development"
+    ]
+}
