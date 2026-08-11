@@ -41,7 +41,7 @@ class AdminManagementService
 
     public function update(User $admin, array $data)
     {
-        $user = auth('api')->user();
+        $user = auth('sanctum')->user();
         if ($user->id !== 1) {
             throw new \LogicException(__('admin.only_super_admin_can_update'));
         }
@@ -51,7 +51,7 @@ class AdminManagementService
 
     public function updateProfile(array $data)
     {
-        $admin = auth('api')->user();
+        $admin = auth('sanctum')->user();
 
         return $this->updateAdmin($admin, $data);
     }

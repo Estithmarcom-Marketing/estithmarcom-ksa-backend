@@ -34,5 +34,10 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'tqnyat' => [
+        'api_url' => env('TQNYAT_API_URL'),
+        'api_token' => env('TQNYAT_API_TOKEN'),
+        'sender' => env('TQNYAT_SENDER'),
+    ],
 
 ];
