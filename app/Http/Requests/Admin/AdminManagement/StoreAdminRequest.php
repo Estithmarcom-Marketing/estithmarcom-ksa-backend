@@ -20,11 +20,12 @@ class StoreAdminRequest extends FormRequest
      *
      * @return array<string, ValidationRule|array<mixed>|string>
      */
-   public function rules(): array
+    public function rules(): array
     {
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users,email'],
+            'phone' => ['nullable', 'string', 'phone:AUTO'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }

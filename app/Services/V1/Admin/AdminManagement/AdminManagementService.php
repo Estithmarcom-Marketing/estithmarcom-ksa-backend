@@ -11,7 +11,9 @@ class AdminManagementService
     {
         $per_page = $data['per_page'] ?? 10;
 
-        return User::paginate($per_page);
+        return User::select(['id', 'name', 'email', 'phone', 'created_at'])
+            ->latest()
+            ->paginate($per_page);
     }
 
     public function getAuthenticatedUser()
@@ -24,6 +26,7 @@ class AdminManagementService
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'phone' => isset($data['phone']) ? $this->normalizePhone($data['phone']) : null,
             'password' => Hash::make($data['password']),
         ]);
     }
@@ -51,7 +54,6 @@ class AdminManagementService
         $admin = auth('api')->user();
 
         return $this->updateAdmin($admin, $data);
-
     }
 
     private function updateAdmin(User $admin, array $data)
@@ -59,11 +61,19 @@ class AdminManagementService
         $admin->update([
             'name' => $data['name'] ?? $admin->name,
             'email' => $data['email'] ?? $admin->email,
+            'phone' => array_key_exists('phone', $data)
+                ? ($data['phone'] ? $this->normalizePhone($data['phone']) : null)
+                : $admin->phone,
             'password' => isset($data['password'])
                 ? Hash::make($data['password'])
                 : $admin->password,
         ]);
 
         return $admin->refresh();
+    }
+
+    private function normalizePhone(string $phone): string
+    {
+        return str_replace(['+', ' ', '-'], '', $phone);
     }
 }

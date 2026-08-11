@@ -33,6 +33,7 @@ class UpdateAdminRequest extends FormRequest
                 'email:rfc,dns',
                 Rule::unique('users', 'email')->ignore($adminId),
             ],
+            'phone' => 'sometimes|nullable|string|phone:AUTO',
             'password' => 'sometimes|string|min:8|confirmed',
         ];
     }
