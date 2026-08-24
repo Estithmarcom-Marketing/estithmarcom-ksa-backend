@@ -20,7 +20,7 @@ class SettingResource extends JsonResource
             'name_en' => $this->name_en,
             'phone' => $this->phone,
             'email' => $this->email,
-            'address' => $this->address,
+            'addresses' => $this->whenLoaded('addresses', fn() => AddressResource::collection($this->addresses), []),
             'facebook' => $this->facebook,
             'x' => $this->x,
             'instagram' => $this->instagram,

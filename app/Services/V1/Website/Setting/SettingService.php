@@ -8,6 +8,22 @@ class SettingService
 {
     public function getSettings()
     {
-        return Setting::firstOrFail();
+        $locale = app()->getLocale() ?? 'ar';
+
+        return Setting::select([
+            'id',
+            "name_$locale as name",
+            'phone',
+            'email',
+            'facebook',
+            'x',
+            'instagram',
+            'linkedin',
+            'whatsapp',
+            'snapchat',
+            'tiktok',
+        ])
+            ->with(['addresses' => fn ($query) => $query->select(['id', 'setting_id', "address_$locale as address"])])
+            ->firstOrFail();
     }
 }

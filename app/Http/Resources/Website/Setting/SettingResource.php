@@ -15,18 +15,17 @@ class SettingResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'name_ar' => $this->name_ar,
-            'name_en' => $this->name_en,
+            'name' => $this->name,
             'phone' => $this->phone,
             'email' => $this->email,
-            'address' => $this->address,
+            'addresses' => $this->whenLoaded('addresses', fn() => AddressResource::collection($this->addresses), []),
             'facebook' => $this->facebook,
             'x' => $this->x,
             'instagram' => $this->instagram,
             'linkedin' => $this->linkedin,
             'whatsapp' => $this->whatsapp,
             'snapchat' => $this->snapchat,
-            'tiktok' => $this->tiktok
+            'tiktok' => $this->tiktok,
         ];
     }
 }

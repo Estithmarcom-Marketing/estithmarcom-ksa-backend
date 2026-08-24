@@ -17,7 +17,6 @@ class SettingSeeder extends Seeder
             'name_en' => 'Estithmarcom',
             'phone' => '966100000000',
             'email' => 'info@estithmarcom.com',
-            'address' => 'الرياض - المملكة العربية السعودية',
             'facebook' => 'https://estthimarcom.net',
             'instagram' => 'https://estthimarcom.net/',
             'linkedin' => 'https://estthimarcom.net/',
@@ -27,6 +26,13 @@ class SettingSeeder extends Seeder
             'x' => 'https://estthimarcom.net/',
         ];
 
-        Setting::create($setting);
+        $setting = Setting::create($setting);
+
+        $setting->addresses()->createMany([
+            [
+                'address_ar' => 'الرياض - المملكة العربية السعودية',
+                'address_en' => 'Riyadh - Kingdom of Saudi Arabia',
+            ],
+        ]);
     }
 }

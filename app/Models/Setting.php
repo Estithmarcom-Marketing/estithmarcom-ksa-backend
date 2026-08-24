@@ -3,14 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable([
     'name_ar',
     'name_en',
     'phone',
     'email',
-    'address',
     'facebook',
     'x',
     'instagram',
@@ -19,4 +20,12 @@ use Illuminate\Database\Eloquent\Model;
     'snapchat',
     'tiktok',
 ])]
-class Setting extends Model {}
+class Setting extends Model
+{
+    use HasFactory;
+
+    public function addresses(): HasMany
+    {
+        return $this->hasMany(Address::class);
+    }
+}

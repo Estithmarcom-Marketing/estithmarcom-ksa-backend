@@ -3,24 +3,35 @@
 namespace App\Services\V1\Admin\Setting;
 
 use App\Models\Setting;
+use Illuminate\Support\Facades\DB;
 
 class SettingService
 {
     public function index()
     {
-        return Setting::first();
+        return Setting::with('addresses')->first();
     }
 
     public function update(array $data)
     {
-        $info = Setting::firstOrFail();
+        return DB::transaction(function () use ($data) {
+            $info = Setting::firstOrFail();
 
-        $data['phone'] = isset($data['phone'])
-            ? str_replace(['+', ' ', '-'], '', $data['phone'])
-            : $info->phone;
+            $data['phone'] = isset($data['phone'])
+                ? str_replace(['+', ' ', '-'], '', $data['phone'])
+                : $info->phone;
 
-        $info->update($data);
+            $addresses = $data['addresses'] ?? null;
+            unset($data['addresses']);
 
-        return $info->refresh();
+            $info->update($data);
+
+            if ($addresses !== null) {
+                $info->addresses()->delete();
+                $info->addresses()->createMany($addresses);
+            }
+
+            return $info->fresh('addresses');
+        });
     }
 }
