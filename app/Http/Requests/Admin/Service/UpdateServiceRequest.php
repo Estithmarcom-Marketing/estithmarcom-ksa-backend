@@ -5,6 +5,7 @@ namespace App\Http\Requests\Admin\Service;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
 
 class UpdateServiceRequest extends FormRequest
 {
@@ -36,6 +37,20 @@ class UpdateServiceRequest extends FormRequest
             'long_description_en' => ['sometimes', 'string'],
 
             'published' => ['sometimes', 'boolean'],
+
+            'chat_target_type' => [
+                'nullable',
+                'string',
+                Rule::in(['category', 'group', 'service']),
+                'required_with:chat_target_id',
+            ],
+            'chat_target_id' => [
+                'nullable',
+                'string',
+                'max:128',
+                'regex:/\A[A-Za-z0-9][A-Za-z0-9_-]*\z/',
+                'required_with:chat_target_type',
+            ],
 
             'meta_title_ar' => ['nullable', 'string', 'max:255'],
             'meta_title_en' => ['nullable', 'string', 'max:255'],
@@ -71,12 +86,35 @@ class UpdateServiceRequest extends FormRequest
             'features.*.image' => ['nullable', 'image:allow_svg', 'mimes:jpg,jpeg,png,webp,svg', 'max:10240'],
         ];
     }
+
+    public function withValidator(Validator $validator): void
+    {
+        $validator->after(function (Validator $validator): void {
+            $service = $this->route('service');
+
+            $targetType = $this->exists('chat_target_type')
+                ? $this->input('chat_target_type')
+                : $service?->chat_target_type;
+
+            $targetId = $this->exists('chat_target_id')
+                ? $this->input('chat_target_id')
+                : $service?->chat_target_id;
+
+            if (filled($targetType) !== filled($targetId)) {
+                $message = 'Chat target type and chat target ID must be provided together.';
+
+                $validator->errors()->add('chat_target_type', $message);
+                $validator->errors()->add('chat_target_id', $message);
+            }
+        });
+    }
+
     protected function prepareForValidation()
     {
         // country_ids fix
         if (is_string($this->country_ids)) {
             $this->merge([
-                'country_ids' => [$this->country_ids]
+                'country_ids' => [$this->country_ids],
             ]);
         }
 
@@ -92,12 +130,12 @@ class UpdateServiceRequest extends FormRequest
             }
 
             // ensure it's always array
-            if (!is_array($features)) {
+            if (! is_array($features)) {
                 $features = [];
             }
 
             $this->merge([
-                'features' => $features
+                'features' => $features,
             ]);
         }
     }

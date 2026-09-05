@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin\Service;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreServiceRequest extends FormRequest
 {
@@ -37,6 +38,20 @@ class StoreServiceRequest extends FormRequest
 
             'published' => ['required', 'boolean'],
 
+            'chat_target_type' => [
+                'nullable',
+                'string',
+                Rule::in(['category', 'group', 'service']),
+                'required_with:chat_target_id',
+            ],
+            'chat_target_id' => [
+                'nullable',
+                'string',
+                'max:128',
+                'regex:/\A[A-Za-z0-9][A-Za-z0-9_-]*\z/',
+                'required_with:chat_target_type',
+            ],
+
             'meta_title_ar' => ['nullable', 'string', 'max:255'],
             'meta_title_en' => ['nullable', 'string', 'max:255'],
             'meta_description_ar' => ['nullable', 'string'],
@@ -61,11 +76,12 @@ class StoreServiceRequest extends FormRequest
 
         ];
     }
+
     protected function prepareForValidation()
     {
         if (is_string($this->country_ids)) {
             $this->merge([
-                'country_ids' => [$this->country_ids]
+                'country_ids' => [$this->country_ids],
             ]);
         }
     }

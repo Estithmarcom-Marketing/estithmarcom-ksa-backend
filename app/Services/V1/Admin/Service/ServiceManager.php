@@ -3,10 +3,10 @@
 namespace App\Services\V1\Admin\Service;
 
 use App\Models\Service;
-use Illuminate\Support\Facades\DB;
 use App\Models\ServiceFeature;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class ServiceManager
 {
@@ -15,16 +15,18 @@ class ServiceManager
         $perPage = $data['per_page'] ?? 10;
 
         return Service::query()
-            ->when(array_key_exists('published', $data), fn($q) => $q->published($data['published']))
-            ->when(filled($data['search'] ?? null), fn($q) => $q->search($data['search']))
-            ->when(filled($data['country_id'] ?? null),  fn($q) => $q->filterByCountry($data['country_id']))
+            ->when(array_key_exists('published', $data), fn ($q) => $q->published($data['published']))
+            ->when(filled($data['search'] ?? null), fn ($q) => $q->search($data['search']))
+            ->when(filled($data['country_id'] ?? null), fn ($q) => $q->filterByCountry($data['country_id']))
             ->with('media')
             ->select(
                 [
                     'id',
                     'title_ar',
                     'published',
-                    'created_at'
+                    'chat_target_type',
+                    'chat_target_id',
+                    'created_at',
                 ]
             )
             ->latest()
@@ -40,6 +42,7 @@ class ServiceManager
             'features.media',
         ]);
     }
+
     public function store(array $data)
     {
         $data['slug_ar'] = $data['slug_ar'] ?? make_slug($data['title_ar'], 'ar', Service::class, 'slug_ar');
@@ -105,7 +108,7 @@ class ServiceManager
         DB::transaction(function () use ($service) {
             $service->features()
                 ->get()
-                ->each(fn($feature) => $this->deleteFeature($feature));
+                ->each(fn ($feature) => $this->deleteFeature($feature));
 
             $service->faqs()->delete();
             $service->delete();
@@ -129,6 +132,7 @@ class ServiceManager
             $this->createFeature($service, $featureData);
         }
     }
+
     private function createFeature(Service $service, array $data): ServiceFeature
     {
         $feature = $service->features()->create(
@@ -148,12 +152,12 @@ class ServiceManager
 
     private function syncFeatures(Service $service, array $features): void
     {
-        $existing   = $service->features()->get()->keyBy('id');
+        $existing = $service->features()->get()->keyBy('id');
         $incomingIds = collect($features)->pluck('id')->filter();
 
         $existing
             ->whereNotIn('id', $incomingIds)
-            ->each(fn($feature) => $this->deleteFeature($feature));
+            ->each(fn ($feature) => $this->deleteFeature($feature));
 
         foreach ($features as $featureData) {
             if (! empty($featureData['id'])) {
@@ -163,6 +167,7 @@ class ServiceManager
             }
         }
     }
+
     private function updateExistingFeature($existing, array $featureData): void
     {
         $feature = $existing->get($featureData['id']);
@@ -174,7 +179,6 @@ class ServiceManager
         $feature->update($featureData);
         $this->syncImage($feature, $featureData['image'] ?? null, 'service_feature');
     }
-
 
     private function syncFeatureImage(
         ServiceFeature $feature,
@@ -193,7 +197,7 @@ class ServiceManager
             ->toMediaCollection('service_feature');
     }
 
-    private function updateSlug(Service $service,  ?string $newTitle, string $locale): string
+    private function updateSlug(Service $service, ?string $newTitle, string $locale): string
     {
         $currentTitle = $service->{"title_$locale"};
 
@@ -213,11 +217,13 @@ class ServiceManager
                 ->sync($data['country_ids']);
         }
     }
+
     private function deleteFeature(ServiceFeature $feature): void
     {
         $feature->clearMediaCollection('service_feature');
         $feature->delete();
     }
+
     private function syncImage($model, mixed $image, string $collection): void
     {
         if (! $image instanceof UploadedFile) {

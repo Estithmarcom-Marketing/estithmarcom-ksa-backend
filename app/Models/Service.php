@@ -19,6 +19,8 @@ use Spatie\MediaLibrary\InteractsWithMedia;
     'feature_description_ar',
     'feature_description_en',
     'published',
+    'chat_target_type',
+    'chat_target_id',
     'meta_title_ar',
     'meta_title_en',
     'meta_description_ar',
@@ -34,26 +36,32 @@ class Service extends Model implements HasMedia
             'published' => 'boolean',
         ];
     }
+
     public function faqs()
     {
         return $this->morphMany(Faq::class, 'faqable');
     }
+
     public function features()
     {
         return $this->hasMany(ServiceFeature::class);
     }
+
     public function scopePublished($query, $value = true)
     {
         return $query->where('published', $value);
     }
+
     public function requests()
     {
         return $this->hasMany(RequestService::class);
     }
+
     public function countries()
     {
         return $this->belongsToMany(Country::class)->withTimestamps();
     }
+
     public function scopeSearch($query, $term)
     {
         $term = "%$term%";
@@ -62,6 +70,7 @@ class Service extends Model implements HasMedia
             'title_en',
         ], 'LIKE', $term);
     }
+
     public function scopeFilterByCountry($query, $country_id)
     {
         return $query->whereHas('countries', function ($query) use ($country_id) {
