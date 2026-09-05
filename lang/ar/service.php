@@ -5,6 +5,7 @@ return [
     'listed_failed' => 'فشل عرض الخدمات.',
     'showed_successfully' => 'تم عرض الخدمة بنجاح.',
     'showed_failed' => 'فشل عرض الخدمة.',
+    'not_found' => 'الخدمة غير موجودة.',
     'stored_successfully' => 'تم إنشاء الخدمة بنجاح.',
     'stored_failed' => 'فشل إنشاء الخدمة.',
     'updated_successfully' => 'تم تحديث الخدمة بنجاح.',

@@ -81,7 +81,7 @@ class ServiceManager
                     ->orWhere('slug_en', $identifier)
                     ->orWhere('id', $identifier);
             })
-            ->first();
+            ->firstOrFail();
     }
 
     public function listWithoutPagination()
