@@ -244,3 +244,18 @@ it('selects chat target fields in all website service queries', function () {
         ->and($unpaginatedService->chat_target_id)
         ->toBe('marketing-business-development');
 });
+
+it('returns not found for an unpublished website service', function () {
+    $service = createChatTargetService([
+        'published' => false,
+        'chat_target_type' => null,
+        'chat_target_id' => null,
+    ]);
+
+    $this
+        ->withHeader('Accept-Language', 'en')
+        ->getJson("/api/v1/website/services/{$service->id}")
+        ->assertNotFound()
+        ->assertJsonPath('success', false)
+        ->assertJsonPath('error', 'Service not found.');
+});

@@ -5,6 +5,7 @@ return [
     'listed_failed' => 'Failed to get services.',
     'showed_successfully' => 'Service showed successfully.',
     'showed_failed' => 'Failed to get service.',
+    'not_found' => 'Service not found.',
     'stored_successfully' => 'Service created successfully.',
     'stored_failed' => 'Failed to create service.',
     'updated_successfully' => 'Service updated successfully.',

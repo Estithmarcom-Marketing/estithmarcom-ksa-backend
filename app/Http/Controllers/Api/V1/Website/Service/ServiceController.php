@@ -9,6 +9,7 @@ use App\Http\Resources\Website\Service\ServiceSiteMapResource;
 use App\Services\V1\Website\Service\ServiceManager;
 use App\Traits\ApiResponse;
 use Dedoc\Scramble\Attributes\Group;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,6 +48,9 @@ class ServiceController extends Controller
             return ApiResponse::success([
                 'service' => $service,
             ], __('service.showed_successfully'), Response::HTTP_OK);
+        } catch (ModelNotFoundException $e) {
+            Log::error('Service not found', ['error' => $e->getMessage(), 'service_identifier' => $identifier, 'method' => __METHOD__]);
+            return ApiResponse::error(__('service.not_found'), Response::HTTP_NOT_FOUND);
         } catch (\Throwable $th) {
             Log::error('Failed to show service', ['error' => $th->getMessage(), 'service_identifier' => $identifier, 'method' => __METHOD__]);
             return ApiResponse::error(__('service.showed_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
