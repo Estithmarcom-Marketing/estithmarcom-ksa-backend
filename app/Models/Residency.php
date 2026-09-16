@@ -15,6 +15,8 @@ use Spatie\MediaLibrary\InteractsWithMedia;
     'slug_en',
     'slug_ar',
     'published',
+    'chat_target_type',
+    'chat_target_id',
     'meta_title_en',
     'meta_title_ar',
     'meta_description_en',
