@@ -18,6 +18,8 @@ class ResidencyService
             ->with('media')
             ->select([
                 'id',
+                'chat_target_type',
+                'chat_target_id',
                 "title_$locale as title",
                 "slug_$locale as slug",
             ])
@@ -33,6 +35,8 @@ class ResidencyService
             [
                 'id',
                 'country_id',
+                'chat_target_type',
+                'chat_target_id',
                 "title_{$locale} as title",
                 "slug_{$locale} as slug",
                 "description_{$locale} as description",

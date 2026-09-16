@@ -22,6 +22,8 @@ class ResidencyResource extends JsonResource
             'slug_ar' => $this->slug_ar,
             'slug_en' => $this->slug_en,
             'published' => $this->published,
+            'chat_target_type' => $this->chat_target_type,
+            'chat_target_id' => $this->chat_target_id,
             'description_ar' => $this->description_ar,
             'description_en' => $this->description_en,
             'image' => $this->whenLoaded('media', fn() => $this->getFirstMediaUrl('residency'), ''),

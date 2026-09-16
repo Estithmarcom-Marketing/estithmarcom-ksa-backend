@@ -16,7 +16,14 @@ class ResidencyService
             ->when(filled($data['country_id'] ?? null), fn($q) => $q->filterByCountry($data['country_id']))
             ->when(filled($search ?? null), fn($q) => $q->search($search))
             ->with('media')
-            ->select(['id', 'title_ar', 'published', 'created_at'])
+            ->select([
+                'id',
+                'title_ar',
+                'published',
+                'chat_target_type',
+                'chat_target_id',
+                'created_at',
+            ])
             ->latest()
             ->paginate($per_page);
     }

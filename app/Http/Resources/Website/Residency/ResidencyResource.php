@@ -17,6 +17,8 @@ class ResidencyResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'chat_target_type' => $this->chat_target_type,
+            'chat_target_id' => $this->chat_target_id,
             'title' => $this->title,
             'slug' => $this->slug,
             'description' => $this->description,

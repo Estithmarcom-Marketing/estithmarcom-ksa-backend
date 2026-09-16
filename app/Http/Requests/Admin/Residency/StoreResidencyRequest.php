@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin\Residency;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreResidencyRequest extends FormRequest
 {
@@ -30,6 +31,19 @@ class StoreResidencyRequest extends FormRequest
             'slug_ar' => ['nullable', 'string', 'max:255', 'unique:residencies,slug_ar'],
             'slug_en' => ['nullable', 'string', 'max:255', 'unique:residencies,slug_en'],
             'published' => ['required', 'boolean'],
+            'chat_target_type' => [
+                'nullable',
+                'string',
+                Rule::in(['category', 'group', 'service']),
+                'required_with:chat_target_id',
+            ],
+            'chat_target_id' => [
+                'nullable',
+                'string',
+                'max:128',
+                'regex:/\A[A-Za-z0-9][A-Za-z0-9_-]*\z/',
+                'required_with:chat_target_type',
+            ],
             'meta_title_ar' => ['nullable', 'string', 'max:255'],
             'meta_title_en' => ['nullable', 'string', 'max:255'],
             'meta_description_ar' => ['nullable', 'string', 'max:255'],
