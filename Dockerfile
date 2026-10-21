@@ -15,7 +15,7 @@ COPY . .
 
 RUN composer dump-autoload --optimize --no-dev --ignore-platform-reqs
 
-FROM php:8.4-fpm-alpine
+FROM php:8.4.27-fpm-alpine
 
 # ── System dependencies ───────────────────────────────────────────────────────
 RUN apk add --no-cache \
